@@ -30,6 +30,14 @@
 			action="javascript:document.getElementById('logout').submit()">
 			<button type="submit">Log out</button>
 		</form>
+		<f:form style="display: inline;" action="${contextPath }/patientspage"
+			method="get">
+			<button type="submit">patients page</button>
+		</f:form>
+		<f:form style="display: inline;" action="${contextPath }/addpatient"
+			method="get">
+			<button type="submit">add patient</button>
+		</f:form>
 
 		<!--  <a class="button"
 			href="javascript:document.getElementById('logout').submit()">Logout</a>-->

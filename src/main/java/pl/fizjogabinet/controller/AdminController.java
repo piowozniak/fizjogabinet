@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pl.fizjogabinet.dto.PatientDTO;
+import pl.fizjogabinet.entity.Patient;
 import pl.fizjogabinet.entity.User;
 import pl.fizjogabinet.service.AdminService;
 
@@ -28,32 +30,42 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 
-	@RequestMapping(path="/adminpage")
-	public String displayAdminPage(Model model) {
-		return adminService.displayUsers(model);
+	@RequestMapping(path="/patientspage")
+	public String displayPatientsPage(Model model) {
+		return adminService.displayPatients(model);
 	}
-	@RequestMapping(path="/activateuser/{id}", method = RequestMethod.GET)
-	public String activateUser(@PathVariable(value="id", required=false) long id, Model model ) {
-		return adminService.dislayUserToActivateOrDeactivate(model, id);
+	
+	@RequestMapping(path="/addpatient")
+	public String addPatientForm(Model model) {
+		return adminService.addPatient(model);
 	}
-	@PostMapping(path="/confirmuseractivation")
-	public String confirmUser(Model model, @ModelAttribute("user") User user ) {
-		return adminService.confirmUser(model, user);
+	
+	@RequestMapping(path="/addpatientconfirmation")
+	public String addPatientConfirmation(Model model, @ModelAttribute("patient") PatientDTO patient) {
+		return adminService.confirmPatient(model, patient);
 	}
-	@RequestMapping(path="/edituser/{id}", method = RequestMethod.GET)
-	public String editUserDetails(@PathVariable("id") long id, Model model) {
-		System.out.println(id);
-		return adminService.editUser(model, id);		 
-	}
-	@PostMapping(path="/edituserconfirmation")
-	public String editUserConfirmation(@ModelAttribute("user") User user,  Model model) {
-		System.out.println(model.containsAttribute("user"));
-		return adminService.editUserConfirmation(model, user);
-	}
-	@PostMapping(path="/giverole/{id}")
-	public String giveOrganizerRole(Model model, @PathVariable("id") long id) {
-		return adminService.giveOrganizerRole(model, id);
-	}
+//	@RequestMapping(path="/activateuser/{id}", method = RequestMethod.GET)
+//	public String activateUser(@PathVariable(value="id", required=false) long id, Model model ) {
+//		return adminService.dislayUserToActivateOrDeactivate(model, id);
+//	}
+//	@PostMapping(path="/confirmuseractivation")
+//	public String confirmUser(Model model, @ModelAttribute("user") User user ) {
+//		return adminService.confirmUser(model, user);
+//	}
+//	@RequestMapping(path="/edituser/{id}", method = RequestMethod.GET)
+//	public String editUserDetails(@PathVariable("id") long id, Model model) {
+//		System.out.println(id);
+//		return adminService.editUser(model, id);		 
+//	}
+//	@PostMapping(path="/edituserconfirmation")
+//	public String editUserConfirmation(@ModelAttribute("user") User user,  Model model) {
+//		System.out.println(model.containsAttribute("user"));
+//		return adminService.editUserConfirmation(model, user);
+//	}
+//	@PostMapping(path="/giverole/{id}")
+//	public String giveOrganizerRole(Model model, @PathVariable("id") long id) {
+//		return adminService.giveOrganizerRole(model, id);
+//	}
 	
 
 }
