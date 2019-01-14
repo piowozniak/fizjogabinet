@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
 import pl.fizjogabinet.entity.MedicalHistory;
 import pl.fizjogabinet.entity.Patient;
@@ -75,6 +76,17 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		visitRepository.save(visit);
 		return "redirect:/patientspage";
 	}
+	
+	@Override
+	public String displayPatientsCard(Long id, Model model) {
+		patient = patientRepository.findOne(id);
+		PatientDTO patientDTO = new PatientDTO(patient);
+		List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
+		patient.getMedicalHistory().stream().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
+		model.addAttribute("patient", patientDTO);
+		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
+		return "patientscard";
+	}
 
 
 	@Override
@@ -94,6 +106,12 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	public void addAttributesToModel(Model model) {
 		model.addAttribute("allPatients", allPatients);
 		model.addAttribute("patient", patient);
+	}
+
+	@Override
+	public String displayMedicalHistory(Model model) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //

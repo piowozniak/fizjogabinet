@@ -11,6 +11,11 @@ public class PatientDTO {
 	public PatientDTO() {
 		super();
 	}
+	
+	public PatientDTO(Patient patient) {
+		super();
+		this.patient = patient;
+	}
 
 	public PatientDTO(Patient patient, Visit visit) {
 		super();

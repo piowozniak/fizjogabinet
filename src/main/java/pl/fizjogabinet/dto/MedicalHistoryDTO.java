@@ -7,8 +7,32 @@ import pl.fizjogabinet.entity.MedicalHistory;
 
 public class MedicalHistoryDTO {
 	
+	private boolean displayMedicalHistory = false;
 	private MedicalHistory medicalHistory;
-	private List<Hypothesis> hypothesis;
-	
+
+	public MedicalHistoryDTO(MedicalHistory medicalHistory) {
+		super();
+		this.medicalHistory = medicalHistory;
+	}
+
+	public MedicalHistoryDTO() {
+		super();
+	}
+
+	public MedicalHistory getMedicalHistory() {
+		return medicalHistory;
+	}
+
+	public void setMedicalHistory(MedicalHistory medicalHistory) {
+		this.medicalHistory = medicalHistory;
+	}
+
+	public boolean isDisplayMedicalHistory() {
+		return displayMedicalHistory;
+	}
+
+	public void setDisplayMedicalHistory(boolean displayMedicalHistory) {
+		this.displayMedicalHistory = displayMedicalHistory;
+	}
 
 }

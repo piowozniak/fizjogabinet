@@ -38,6 +38,10 @@
 			method="get">
 			<button type="submit">add patient</button>
 		</f:form>
+		<f:form style="display: inline;" action="${contextPath }/addtherapist"
+			method="get">
+			<button type="submit">add therapist</button>
+		</f:form>
 
 		<!--  <a class="button"
 			href="javascript:document.getElementById('logout').submit()">Logout</a>-->

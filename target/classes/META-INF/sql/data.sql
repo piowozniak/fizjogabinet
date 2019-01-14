@@ -14,3 +14,5 @@ INSERT INTO therapist (id, firstName, lastName) VALUES (3, "Stasiu", "Hue");
 INSERT INTO therapist (id, firstName, lastName) VALUES (4, "Kazimierz", "Wielki");
 
 
+
+

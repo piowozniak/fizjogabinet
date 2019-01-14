@@ -21,18 +21,36 @@
 		method="get">
 		<button type="submit">homepage</button>
 	</f:form>
-	<f:form style="display: inline;" action="${contextPath}/addpatient"
-		method="get">
-		<button type="submit">add patient</button>
+
+	</br>
+
+	<h2>patients card</h2>
+	<td>${patient.patient.firstName }</td>
+	<td>${ patient.patient.lastName}</td>
+
+	<h2>medical history</h2>
+	<f:form style="display: inline;"
+		action="${contextPath }/addmedicalhistory" method="get">
+		<button type="submit">add medical information</button>
 	</f:form>
-</br>
-	<c:forEach items="${allPatients}" var="patient">
-		<td>${patient.firstName }</td>
-		<td>${patient.lastName }</td>
-		<f:form style="display: inline;" action="${contextPath }/displaypatientscard/${patient.id }"
-			method="get">
-			<button type="submit">details</button>
+	<c:forEach items="${listOfMedicalHistory}" var="medicalHistory" varStatus="thecount">
+
+		<f:form style="display: inline;"
+			action="${contextPath }/addmedicalhistory" method="get">
+			<button type="submit">display hypothesis ${thecount.count }</button>
 		</f:form>
+		<c:if test="${medicalHistory.displayMedicalHistory }">
+			<td>${medicalHistory.medicalHistory.date }</td>
+			<td>${medicalHistory.medicalHistory.medication }</td>
+			<td>${medicalHistory.medicalHistory.treatment }</td>
+			<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
+				var="hypothesis" varStatus="hypo" >
+				<td>hipoteza ${hypo.count }</td>
+				</br>
+				<td>${hypothesis.description }</td>
+				</br>
+			</c:forEach>
+		</c:if>
 		</br>
 	</c:forEach>
 </body>

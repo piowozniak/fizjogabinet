@@ -15,5 +15,7 @@ public interface AdminService {
 	String confirmPatient(Model model, PatientDTO patient);
 	String editPatient(Model model, long id ) ;
 	String editPatientConfirmation(Model model, Patient patient);
+	String displayPatientsCard(Long id, Model model);
+	String displayMedicalHistory(Model model);
 
 }
