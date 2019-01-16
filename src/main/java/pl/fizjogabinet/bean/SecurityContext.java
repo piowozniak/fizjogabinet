@@ -16,8 +16,6 @@ public class SecurityContext {
 		
 //	private static UserRepository userRepository;
 //	private final static String ADMIN = "ROLE_ADMIN";
-//	private final static String ORGANIZER= "ROLE_ORGANIZER";
-//	private final static String USER = "ROLE_USER";
 //	
 //	@Autowired	
 //	private SecurityContext(UserRepository userRepository) {

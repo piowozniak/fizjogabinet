@@ -16,6 +16,6 @@ public interface AdminService {
 	String editPatient(Model model, long id ) ;
 	String editPatientConfirmation(Model model, Patient patient);
 	String displayPatientsCard(Long id, Model model);
-	String displayMedicalHistory(Model model);
+	String displayMedicalHistory(Model model, Long id);
 
 }

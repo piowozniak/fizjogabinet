@@ -31,18 +31,19 @@
 	<h2>medical history</h2>
 	<f:form style="display: inline;"
 		action="${contextPath }/addmedicalhistory" method="get">
-		<button type="submit">add medical information</button>
+		<button type="submit">add medical history</button>
 	</f:form>
+	</br>
 	<c:forEach items="${listOfMedicalHistory}" var="medicalHistory" varStatus="thecount">
 
 		<f:form style="display: inline;"
-			action="${contextPath }/addmedicalhistory" method="get">
-			<button type="submit">display hypothesis ${thecount.count }</button>
+			action="${contextPath }/displaymedicalhistory/${medicalHistory.medicalHistory.id }" method="get">
+			<button type="submit">display medical history ${thecount.count }</button>
 		</f:form>
 		<c:if test="${medicalHistory.displayMedicalHistory }">
-			<td>${medicalHistory.medicalHistory.date }</td>
-			<td>${medicalHistory.medicalHistory.medication }</td>
-			<td>${medicalHistory.medicalHistory.treatment }</td>
+			<div>${medicalHistory.medicalHistory.date }</div>
+			<div>${medicalHistory.medicalHistory.medication }</div>
+			<div>${medicalHistory.medicalHistory.treatment }</div>
 			<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
 				var="hypothesis" varStatus="hypo" >
 				<td>hipoteza ${hypo.count }</td>

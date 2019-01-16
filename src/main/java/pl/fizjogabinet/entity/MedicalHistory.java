@@ -66,6 +66,11 @@ public class MedicalHistory {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
+	public List<Hypothesis> getHypothesis() {
+		return hypothesis;
+	}
+	public void setHypothesis(List<Hypothesis> hypothesis) {
+		this.hypothesis = hypothesis;
+	}
 
 }

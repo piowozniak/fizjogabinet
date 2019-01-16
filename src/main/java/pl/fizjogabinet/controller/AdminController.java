@@ -50,5 +50,11 @@ public class AdminController {
 		return adminService.displayPatientsCard(id, model);
 	}
 	
+	@RequestMapping(path="/displaymedicalhistory/{id}")
+	public String displayMedicalHistory(Model model, @PathVariable("id") Long id) {
+		return adminService.displayMedicalHistory(model, id);
+	}
+	
+	
 
 }

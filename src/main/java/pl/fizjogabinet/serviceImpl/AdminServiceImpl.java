@@ -28,31 +28,30 @@ import pl.fizjogabinet.service.ModelService;
 
 @Service
 public class AdminServiceImpl implements AdminService, ModelService {
-	
+
 	private final PatientRepository patientRepository;
 	private final TherapistRepository therapistRepository;
 	private final VisitRepository visitRepository;
 	private List<Patient> allPatients = new ArrayList<>();
 	private Patient patient;
-	private String[] typeOfVisit = new String[] {"Domowa", "Gabinet"};
-	
-	
-	
+	private String[] typeOfVisit = new String[] { "Domowa", "Gabinet" };
+	private List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
+
 	@Autowired
-	public AdminServiceImpl(PatientRepository patientRepository, TherapistRepository therapistRepository, VisitRepository visitRepository) {
+	public AdminServiceImpl(PatientRepository patientRepository, TherapistRepository therapistRepository,
+			VisitRepository visitRepository) {
 		super();
 		this.patientRepository = patientRepository;
 		this.therapistRepository = therapistRepository;
 		this.visitRepository = visitRepository;
 	}
-	
+
 	@Override
 	public String displayPatients(Model model) {
 		allPatients = patientRepository.findAll();
 		addAttributesToModel(model);
 		return "patientspage";
 	}
-
 
 	@Override
 	public String addPatient(Model model) {
@@ -63,7 +62,6 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("patient", patient);
 		return "registerpatientform";
 	}
-
 
 	@Override
 	public String confirmPatient(Model model, PatientDTO patientDTO) {
@@ -76,18 +74,33 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		visitRepository.save(visit);
 		return "redirect:/patientspage";
 	}
-	
+
 	@Override
 	public String displayPatientsCard(Long id, Model model) {
 		patient = patientRepository.findOne(id);
 		PatientDTO patientDTO = new PatientDTO(patient);
-		List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
-		patient.getMedicalHistory().stream().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
+		System.out.println(model.containsAttribute("listOfMedicalHistory"));
+		listOfMedicalHistory.clear();
+		patient.getMedicalHistory().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
 		model.addAttribute("patient", patientDTO);
 		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
 		return "patientscard";
 	}
 
+	@Override
+	public String displayMedicalHistory(Model model, Long id) {
+		listOfMedicalHistory.forEach(m -> setToDisplayMedicalHistory(m,id));
+		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
+		return "patientscard";
+	}
+
+	private void setToDisplayMedicalHistory(MedicalHistoryDTO medicalHistory, Long id) {
+		if (medicalHistory.getMedicalHistory().getId().equals(id)) {
+			medicalHistory.setDisplayMedicalHistory(true);
+			} else {
+				medicalHistory.setDisplayMedicalHistory(false);
+			}
+	}
 
 	@Override
 	public String editPatient(Model model, long id) {
@@ -95,103 +108,16 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		return null;
 	}
 
-
 	@Override
 	public String editPatientConfirmation(Model model, Patient patient) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public void addAttributesToModel(Model model) {
 		model.addAttribute("allPatients", allPatients);
 		model.addAttribute("patient", patient);
 	}
-
-	@Override
-	public String displayMedicalHistory(Model model) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-//
-//	@Override
-//	public String displayUsers(Model model) {
-//		allUsers = userRepository.findAll();
-//		displayUserConfirmation=false;
-//		addAttributesToModel(model);
-//		return "adminpage";	
-//		
-//	}
-//	@Override
-//	public String dislayUserToActivateOrDeactivate(Model model, long id) {
-//		user = userRepository.findOne(id);
-//		displayUserConfirmation = true;
-//		addAttributesToModel(model);
-//		return "edituser";
-//	}
-//
-//	@Override
-//	public String confirmUser(Model model, User user) {
-//		//TO DO refactor
-//		
-//		User userFromAllUsers = allUsers.stream().filter(u -> u.getId() == user.getId()).findFirst().get();
-//		if (StatusE.ACTIVEUSER.getValue().equals(userFromAllUsers.getStatus())) {
-//			userFromAllUsers.setStatus(StatusE.NONACTIVEUSER.getValue());
-//		} else if (StatusE.NONACTIVEUSER.getValue().equals(userFromAllUsers.getStatus())) {
-//			userFromAllUsers.setStatus(StatusE.ACTIVEUSER.getValue());
-//			userFromAllUsers.setRoles(setUserRole(userFromAllUsers));
-//		}
-//		userRepository.saveAndFlush(userFromAllUsers);
-//		displayUserConfirmation = false;
-//		this.user = userRepository.findOne(user.getId());
-//		addAttributesToModel(model);
-//		return "redirect:/edituser/"+user.getId();
-//	}
-//	private Set<Role> setUserRole(User user) {
-//		Role role = roleRepository.findOne(ROLE_USER);
-//		Set<Role> userRole = new HashSet<>();
-//		userRole.add(role);
-//		return userRole;
-//	}
-//	@Override
-//	public String editUser(Model model, long id) {
-//		this.user = userRepository.findOne(id);
-//		addAttributesToModel(model);
-//		return "edituser";
-//	}
-//	
-//	@Override
-//	public String editUserConfirmation(Model model, User user) {
-//		this.user.setEmail(user.getEmail());
-//		this.user.setUsername(user.getUsername());
-//		this.user.setFirstName(user.getFirstName());
-//		this.user.setLastName(user.getLastName());
-//		this.user.setPhoneNumber(user.getPhoneNumber());
-//		userRepository.saveAndFlush(this.user);
-//		allUsers.clear();
-//		allUsers = userRepository.findAll();		
-//		addAttributesToModel(model);
-//		return "redirect:/edituser/"+user.getId();
-//	}
-//	
-//	@Override
-//	public String giveOrganizerRole(Model model, long id) {
-//		User user = userRepository.findOne(id);
-//		Role role = roleRepository.findOne(ROLE_ORGANIZER);
-//		user.getRoles().add(role);
-//		userRepository.save(user);
-//		addAttributesToModel(model);
-//		return "redirect:/edituser/" + id;
-//	}
-
-	
-
-
-
-
-
-
-
 
 }
