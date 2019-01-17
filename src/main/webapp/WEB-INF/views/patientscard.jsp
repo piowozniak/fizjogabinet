@@ -25,8 +25,8 @@
 	</br>
 
 	<h2>patients card</h2>
-	<td>${patient.patient.firstName }</td>
-	<td>${ patient.patient.lastName}</td>
+	<td>${patient.firstName }</td>
+	<td>${patient.lastName}</td>
 
 	<h2>medical history</h2>
 	<f:form style="display: inline;"

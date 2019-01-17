@@ -1,5 +1,6 @@
 package pl.fizjogabinet.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class MedicalHistory {
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="medicalHistory")
-	private List<Hypothesis> hypothesis;
+	private List<Hypothesis> hypothesis = new ArrayList<>();
 	public Long getId() {
 		return id;
 	}

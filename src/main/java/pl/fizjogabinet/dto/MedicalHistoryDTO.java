@@ -7,8 +7,9 @@ import pl.fizjogabinet.entity.MedicalHistory;
 
 public class MedicalHistoryDTO {
 	
-	private boolean displayMedicalHistory = false;
+	private boolean displayMedicalHistory;
 	private MedicalHistory medicalHistory;
+	
 
 	public MedicalHistoryDTO(MedicalHistory medicalHistory) {
 		super();

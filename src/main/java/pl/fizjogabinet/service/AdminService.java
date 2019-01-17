@@ -3,7 +3,9 @@ package pl.fizjogabinet.service;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
+import pl.fizjogabinet.entity.MedicalHistory;
 import pl.fizjogabinet.entity.Patient;
 import pl.fizjogabinet.entity.User;
 
@@ -17,5 +19,8 @@ public interface AdminService {
 	String editPatientConfirmation(Model model, Patient patient);
 	String displayPatientsCard(Long id, Model model);
 	String displayMedicalHistory(Model model, Long id);
+	String addMedicalHistory(Model model);
+	String saveMedicalHistory(Model model, MedicalHistoryDTO medicalHistory);
+	String addHypothesis(Model model, MedicalHistory medicalHistory);
 
 }

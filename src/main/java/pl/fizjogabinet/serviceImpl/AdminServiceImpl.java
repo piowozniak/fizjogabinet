@@ -8,7 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
+import pl.fizjogabinet.entity.Hypothesis;
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
 import pl.fizjogabinet.entity.MedicalHistory;
@@ -24,6 +24,7 @@ import pl.fizjogabinet.repository.TherapistRepository;
 import pl.fizjogabinet.repository.UserRepository;
 import pl.fizjogabinet.repository.VisitRepository;
 import pl.fizjogabinet.service.AdminService;
+import pl.fizjogabinet.service.MedicalHistoryService;
 import pl.fizjogabinet.service.ModelService;
 
 @Service
@@ -32,6 +33,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	private final PatientRepository patientRepository;
 	private final TherapistRepository therapistRepository;
 	private final VisitRepository visitRepository;
+//	private final MedicalRepository medicalRepository;
 	private List<Patient> allPatients = new ArrayList<>();
 	private Patient patient;
 	private String[] typeOfVisit = new String[] { "Domowa", "Gabinet" };
@@ -78,11 +80,10 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	@Override
 	public String displayPatientsCard(Long id, Model model) {
 		patient = patientRepository.findOne(id);
-		PatientDTO patientDTO = new PatientDTO(patient);
-		System.out.println(model.containsAttribute("listOfMedicalHistory"));
+//		PatientDTO patientDTO = new PatientDTO(patient);
 		listOfMedicalHistory.clear();
 		patient.getMedicalHistory().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
-		model.addAttribute("patient", patientDTO);
+		model.addAttribute("patient", patient);
 		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
 		return "patientscard";
 	}
@@ -91,6 +92,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	public String displayMedicalHistory(Model model, Long id) {
 		listOfMedicalHistory.forEach(m -> setToDisplayMedicalHistory(m,id));
 		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
+		model.addAttribute("patient", patient);
 		return "patientscard";
 	}
 
@@ -100,6 +102,31 @@ public class AdminServiceImpl implements AdminService, ModelService {
 			} else {
 				medicalHistory.setDisplayMedicalHistory(false);
 			}
+	}
+	
+	@Override
+	public String addMedicalHistory(Model model) {
+		MedicalHistoryDTO medicalHistory = new MedicalHistoryDTO(new MedicalHistory());
+		model.addAttribute("medicalHistory", medicalHistory);
+		return "addmedicalhistory";
+	}
+	
+	@Override
+	public String saveMedicalHistory(Model model, MedicalHistoryDTO medicalHistory) {
+//		patient = patientRepository.findOne(patient.getId());
+		medicalHistory.getMedicalHistory().setPatient(patient);
+		patient.getMedicalHistory().add(medicalHistory.getMedicalHistory());
+		patientRepository.save(patient);	
+		medicalHistory.setDisplayMedicalHistory(true); 
+		model.addAttribute("medicalHistory", medicalHistory);
+		return "addmedicalhistory";
+	}
+	
+	@Override
+	public String addHypothesis(Model model, MedicalHistory medicalHistory) {
+		medicalHistory.getHypothesis().add(new Hypothesis());
+		model.addAttribute("medicalHistory", medicalHistory);
+		return "addmedicalhistory";
 	}
 
 	@Override
@@ -119,5 +146,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("allPatients", allPatients);
 		model.addAttribute("patient", patient);
 	}
+
+
 
 }
