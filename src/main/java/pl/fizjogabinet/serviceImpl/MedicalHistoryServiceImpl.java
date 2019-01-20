@@ -12,7 +12,7 @@ import pl.fizjogabinet.repository.PatientRepository;
 import pl.fizjogabinet.service.CrudService;
 
 @Service("medicalhistory")
-public class MedicalHistoryServiceImpl implements CrudService {
+public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	
 	@Autowired
 	private PatientRepository patientRepository;

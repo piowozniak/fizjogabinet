@@ -17,7 +17,7 @@ import pl.fizjogabinet.repository.VisitRepository;
 import pl.fizjogabinet.service.CrudService;
 
 @Service("patient")
-public class PatientServiceImpl implements CrudService {
+public class PatientServiceImpl implements CrudService<Object> {
 	
 	@Autowired
 	PatientRepository patientRepository;

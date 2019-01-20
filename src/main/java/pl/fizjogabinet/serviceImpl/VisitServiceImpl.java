@@ -13,7 +13,7 @@ import pl.fizjogabinet.repository.TherapistRepository;
 import pl.fizjogabinet.repository.VisitRepository;
 import pl.fizjogabinet.service.CrudService;
 @Service("visit")
-public class VisitServiceImpl implements CrudService {
+public class VisitServiceImpl implements CrudService<Object> {
 	
 	@Autowired
 	private VisitRepository visitRepository;

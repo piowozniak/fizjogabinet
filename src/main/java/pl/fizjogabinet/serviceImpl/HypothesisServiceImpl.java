@@ -11,7 +11,7 @@ import pl.fizjogabinet.repository.HypothesisRepository;
 import pl.fizjogabinet.repository.MedicalHistoryRepository;
 
 @Service("hypothesis")
-public class HypothesisServiceImpl implements CrudService {
+public class HypothesisServiceImpl implements CrudService<Object> {
 	
 	@Autowired 
 	private MedicalHistoryRepository medicalHistoryRepository;
