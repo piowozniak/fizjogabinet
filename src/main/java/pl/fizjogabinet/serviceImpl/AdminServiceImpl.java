@@ -18,6 +18,8 @@ import pl.fizjogabinet.entity.Therapist;
 import pl.fizjogabinet.entity.User;
 import pl.fizjogabinet.entity.Visit;
 import pl.fizjogabinet.enums.StatusE;
+import pl.fizjogabinet.repository.HypothesisRepository;
+import pl.fizjogabinet.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.repository.PatientRepository;
 import pl.fizjogabinet.repository.RoleRepository;
 import pl.fizjogabinet.repository.TherapistRepository;
@@ -26,6 +28,7 @@ import pl.fizjogabinet.repository.VisitRepository;
 import pl.fizjogabinet.service.AdminService;
 import pl.fizjogabinet.service.MedicalHistoryService;
 import pl.fizjogabinet.service.ModelService;
+import pl.fizjogabinet.service.CrudService;
 
 @Service
 public class AdminServiceImpl implements AdminService, ModelService {
@@ -33,19 +36,23 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	private final PatientRepository patientRepository;
 	private final TherapistRepository therapistRepository;
 	private final VisitRepository visitRepository;
-//	private final MedicalRepository medicalRepository;
+	private final MedicalHistoryRepository medicalHistoryRepository;
+	private final HypothesisRepository hypothesisRepository;
 	private List<Patient> allPatients = new ArrayList<>();
 	private Patient patient;
-	private String[] typeOfVisit = new String[] { "Domowa", "Gabinet" };
+	private final static String[] TYPE_OF_VISIT = new String[] { "Domowa", "Gabinet" };
 	private List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
+	private boolean displayVisits = false;
 
 	@Autowired
 	public AdminServiceImpl(PatientRepository patientRepository, TherapistRepository therapistRepository,
-			VisitRepository visitRepository) {
+			VisitRepository visitRepository,MedicalHistoryRepository medicalHistoryRepository, HypothesisRepository hypothesisRepository) {
 		super();
 		this.patientRepository = patientRepository;
 		this.therapistRepository = therapistRepository;
 		this.visitRepository = visitRepository;
+		this.medicalHistoryRepository = medicalHistoryRepository;
+		this.hypothesisRepository = hypothesisRepository;
 	}
 
 	@Override
@@ -53,28 +60,6 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		allPatients = patientRepository.findAll();
 		addAttributesToModel(model);
 		return "patientspage";
-	}
-
-	@Override
-	public String addPatient(Model model) {
-		PatientDTO patient = new PatientDTO(new Patient(), new Visit());
-		List<Therapist> therapists = therapistRepository.findAll();
-		model.addAttribute("therapists", therapists);
-		model.addAttribute("typeOfVisit", typeOfVisit);
-		model.addAttribute("patient", patient);
-		return "registerpatientform";
-	}
-
-	@Override
-	public String confirmPatient(Model model, PatientDTO patientDTO) {
-		Patient patient = patientDTO.getPatient();
-		patient.setVisits(new ArrayList<>());
-		patient.getVisits().add(patientDTO.getVisit());
-		patientRepository.save(patient);
-		Visit visit = patientDTO.getVisit();
-		visit.setPatient(patient);
-		visitRepository.save(visit);
-		return "redirect:/patientspage";
 	}
 
 	@Override
@@ -105,40 +90,12 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	}
 	
 	@Override
-	public String addMedicalHistory(Model model) {
-		MedicalHistoryDTO medicalHistory = new MedicalHistoryDTO(new MedicalHistory());
-		model.addAttribute("medicalHistory", medicalHistory);
-		return "addmedicalhistory";
-	}
-	
-	@Override
-	public String saveMedicalHistory(Model model, MedicalHistoryDTO medicalHistory) {
-//		patient = patientRepository.findOne(patient.getId());
-		medicalHistory.getMedicalHistory().setPatient(patient);
-		patient.getMedicalHistory().add(medicalHistory.getMedicalHistory());
-		patientRepository.save(patient);	
-		medicalHistory.setDisplayMedicalHistory(true); 
-		model.addAttribute("medicalHistory", medicalHistory);
-		return "addmedicalhistory";
-	}
-	
-	@Override
-	public String addHypothesis(Model model, MedicalHistory medicalHistory) {
-		medicalHistory.getHypothesis().add(new Hypothesis());
-		model.addAttribute("medicalHistory", medicalHistory);
-		return "addmedicalhistory";
-	}
-
-	@Override
-	public String editPatient(Model model, long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String editPatientConfirmation(Model model, Patient patient) {
-		// TODO Auto-generated method stub
-		return null;
+	public String displayVisits(Model model) {
+		displayVisits = displayVisits ? false : true;
+		model.addAttribute("displayVisits", displayVisits);
+		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
+		model.addAttribute("patient", patient);
+		return "patientscard";
 	}
 
 	@Override
@@ -147,6 +104,13 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("patient", patient);
 	}
 
+	public boolean isDisplayVisits() {
+		return displayVisits;
+	}
+
+	public void setDisplayVisits(boolean displayVisits) {
+		this.displayVisits = displayVisits;
+	}
 
 
 }

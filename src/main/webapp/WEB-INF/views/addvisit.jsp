@@ -14,39 +14,34 @@
 </style>
 </head>
 <body>
-	<h2>add medical history</h2>
+	<h2>add visit</h2>
 
-	<f:form action="${contextPath }/addmedicalhistory" method="post"
-		modelAttribute="medicalHistory">
+	<f:form action="${contextPath }/addvisit" method="post"
+		modelAttribute="visit">
 
 		<div>
 			Date:
 			<f:input path="date" />
 		</div>
 		<div>
-			Medication:
-			<f:input path="medication" />
+			Therapist:
+			<f:select path="therapist.id" items="${therapists}"
+				itemLabel="firstName" itemValue="id" />
 		</div>
 		<div>
-			Flag:
-			<f:input path="flag" />
+			Type of visit:
+			<f:select path="type" items="${ typeOfVisit}" />
 		</div>
 		<div>
-			treatment:
-			<f:input path="treatment" />
+			<f:hidden path="patient.id" />
 		</div>
-
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
 		<button type="submit">save</button>
-		<div>
-				<f:hidden path="patient.id" />
-		</div>
 	</f:form>
 
-
-	<f:form action="${contextPath }/displaypatientscard/${medicalhistory.patient.id }" method="get">
-		<button type="submit">back</button>
+	<f:form action="${contextPath }/displaypatientscard/${visit.patient.id }" method="get">
+		<button type="submit">cancel</button>
 	</f:form>
 
 </body>

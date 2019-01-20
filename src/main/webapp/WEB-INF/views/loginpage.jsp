@@ -9,7 +9,6 @@
 <title>login</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
-	<h3>test</h3>
 
 	<c:if test="${not empty error}"><div>${error}</div></c:if>
 	<c:if test="${not empty message}"><div>${message}</div></c:if>
@@ -28,8 +27,6 @@
 				<td colspan='2'><input name="submit" type="submit" value="submit" /></td>
 			</tr>
 		</table>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </body>
 </html>

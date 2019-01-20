@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
+import pl.fizjogabinet.entity.Hypothesis;
 import pl.fizjogabinet.entity.MedicalHistory;
 import pl.fizjogabinet.entity.Patient;
 import pl.fizjogabinet.entity.User;
 import pl.fizjogabinet.service.AdminService;
+import pl.fizjogabinet.service.MedicalHistoryService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
 public class AdminController {
 	
-		
 	private AdminService adminService;
 	
 	@Autowired
@@ -38,16 +39,6 @@ public class AdminController {
 		return adminService.displayPatients(model);
 	}
 	
-	@RequestMapping(path="/addpatient")
-	public String addPatientForm(Model model) {
-		return adminService.addPatient(model);
-	}
-	
-	@RequestMapping(path="/addpatientconfirmation")
-	public String addPatientConfirmation(Model model, @ModelAttribute("patient") PatientDTO patient) {
-		return adminService.confirmPatient(model, patient);
-	}
-	
 	@RequestMapping(path="/displaypatientscard/{id}")
 	public String displayPatientsCard(@PathVariable("id") Long id, Model model) {
 		return adminService.displayPatientsCard(id, model);
@@ -58,20 +49,9 @@ public class AdminController {
 		return adminService.displayMedicalHistory(model, id);
 	}
 	
-	@GetMapping(path="/addmedicalhistory")
-	public String addMedicalHistoryForm(Model model) {
-		return adminService.addMedicalHistory(model);
-	}
-	
-	@PostMapping(path="/addmedicalhistory")
-	public String addMedicalHistory(Model model, @ModelAttribute("medicalHistory") MedicalHistoryDTO medicalHistory) {
-		return adminService.saveMedicalHistory(model, medicalHistory);
-	}
-	
-	@GetMapping(path="/addhypothesis")
-	public String addHypothesisForm(Model model, @ModelAttribute("medicalHistory") MedicalHistory medicalHistory) {
-		System.out.println(model.containsAttribute("medicalHistory"));
-		return "";
+	@GetMapping(path="/displayvisits")
+	public String displayVisitOrHideVisits(Model model) {
+		return adminService.displayVisits(model);
 	}
 	
 

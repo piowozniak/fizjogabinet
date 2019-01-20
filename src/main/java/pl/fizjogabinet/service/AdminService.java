@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
+import pl.fizjogabinet.entity.Hypothesis;
 import pl.fizjogabinet.entity.MedicalHistory;
 import pl.fizjogabinet.entity.Patient;
 import pl.fizjogabinet.entity.User;
@@ -13,14 +14,8 @@ import pl.fizjogabinet.entity.User;
 public interface AdminService {
 	
 	String displayPatients(Model model); 
-	String addPatient(Model model);
-	String confirmPatient(Model model, PatientDTO patient);
-	String editPatient(Model model, long id ) ;
-	String editPatientConfirmation(Model model, Patient patient);
 	String displayPatientsCard(Long id, Model model);
+	String displayVisits(Model model);
 	String displayMedicalHistory(Model model, Long id);
-	String addMedicalHistory(Model model);
-	String saveMedicalHistory(Model model, MedicalHistoryDTO medicalHistory);
-	String addHypothesis(Model model, MedicalHistory medicalHistory);
 
 }
