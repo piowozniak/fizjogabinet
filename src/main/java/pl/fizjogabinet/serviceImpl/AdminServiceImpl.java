@@ -34,25 +34,15 @@ import pl.fizjogabinet.service.CrudService;
 public class AdminServiceImpl implements AdminService, ModelService {
 
 	private final PatientRepository patientRepository;
-	private final TherapistRepository therapistRepository;
-	private final VisitRepository visitRepository;
-	private final MedicalHistoryRepository medicalHistoryRepository;
-	private final HypothesisRepository hypothesisRepository;
 	private List<Patient> allPatients = new ArrayList<>();
 	private Patient patient;
-	private final static String[] TYPE_OF_VISIT = new String[] { "Domowa", "Gabinet" };
 	private List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
 	private boolean displayVisits = false;
 
 	@Autowired
-	public AdminServiceImpl(PatientRepository patientRepository, TherapistRepository therapistRepository,
-			VisitRepository visitRepository,MedicalHistoryRepository medicalHistoryRepository, HypothesisRepository hypothesisRepository) {
+	public AdminServiceImpl(PatientRepository patientRepository) {
 		super();
 		this.patientRepository = patientRepository;
-		this.therapistRepository = therapistRepository;
-		this.visitRepository = visitRepository;
-		this.medicalHistoryRepository = medicalHistoryRepository;
-		this.hypothesisRepository = hypothesisRepository;
 	}
 
 	@Override
