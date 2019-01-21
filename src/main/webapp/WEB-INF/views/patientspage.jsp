@@ -25,11 +25,18 @@
 		method="get">
 		<button type="submit">add patient</button>
 	</f:form>
-</br>
+	</br>
+	<f:form style="display: inline;" action="${contextPath }/searchpatient" method="get">
+		<input name="search" />
+		<button type="submit">Search</button>
+	</f:form>
+	</br>
+	
 	<c:forEach items="${allPatients}" var="patient">
 		<td>${patient.firstName }</td>
 		<td>${patient.lastName }</td>
-		<f:form style="display: inline;" action="${contextPath }/displaypatientscard/${patient.id }"
+		<f:form style="display: inline;"
+			action="${contextPath }/displaypatientscard/${patient.id }"
 			method="get">
 			<button type="submit">details</button>
 		</f:form>

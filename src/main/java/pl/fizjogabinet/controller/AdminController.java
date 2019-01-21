@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.dto.PatientDTO;
@@ -52,6 +53,11 @@ public class AdminController {
 	@GetMapping(path="/displayvisits")
 	public String displayVisitOrHideVisits(Model model) {
 		return adminService.displayVisits(model);
+	}
+	
+	@GetMapping(path="/searchpatient")
+	public String searchPatient(Model model, @RequestParam(value="search", required=false) String search) {
+		return adminService.searchPatient(model, search);
 	}
 	
 

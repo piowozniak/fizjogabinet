@@ -12,10 +12,10 @@ INSERT INTO therapist (id, firstName, lastName) VALUES (2, "John", "Kebab");
 INSERT INTO therapist (id, firstName, lastName) VALUES (3, "Stasiu", "Hue");
 INSERT INTO therapist (id, firstName, lastName) VALUES (4, "Kazimierz", "Wielki");
 
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (1, "John", "Test", "12-12-2007", "66666666");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (2, "Pawel", "Test", "01-12-1998", "77777777");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (3, "Tomek", "Test", "03-01-1995", "55555555");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (4, "Mariusz", "Test", "01-12-1985", "66666666");
+INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (1, "John", "Kebab", "12-12-2007", "66666666");
+INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (2, "Pawel", "Cizemski", "01-12-1998", "77777777");
+INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (3, "Tomek", "Mariolski", "03-01-1995", "55555555");
+INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (4, "Mariusz", "Twardowski", "01-12-1985", "66666666");
 
 
 INSERT INTO medicalHistory (id, patient_id, date, medication, treatment) VALUES (1, 1, "12-12-2018", "Ibuprofen, Apap", "Leczyc okladami");

@@ -1,34 +1,17 @@
 package pl.fizjogabinet.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import pl.fizjogabinet.entity.Hypothesis;
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
-import pl.fizjogabinet.dto.PatientDTO;
-import pl.fizjogabinet.entity.MedicalHistory;
+
 import pl.fizjogabinet.entity.Patient;
-import pl.fizjogabinet.entity.Role;
-import pl.fizjogabinet.entity.Therapist;
-import pl.fizjogabinet.entity.User;
-import pl.fizjogabinet.entity.Visit;
-import pl.fizjogabinet.enums.StatusE;
-import pl.fizjogabinet.repository.HypothesisRepository;
-import pl.fizjogabinet.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.repository.PatientRepository;
-import pl.fizjogabinet.repository.RoleRepository;
-import pl.fizjogabinet.repository.TherapistRepository;
-import pl.fizjogabinet.repository.UserRepository;
-import pl.fizjogabinet.repository.VisitRepository;
 import pl.fizjogabinet.service.AdminService;
-import pl.fizjogabinet.service.MedicalHistoryService;
 import pl.fizjogabinet.service.ModelService;
-import pl.fizjogabinet.service.CrudService;
 
 @Service
 public class AdminServiceImpl implements AdminService, ModelService {
@@ -48,7 +31,8 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	@Override
 	public String displayPatients(Model model) {
 		allPatients = patientRepository.findAll();
-		addAttributesToModel(model);
+		allPatients = new ArrayList<>(sortPatients(allPatients));
+		model.addAttribute("allPatients", allPatients);
 		return "patientspage";
 	}
 
@@ -61,6 +45,11 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("patient", patient);
 		model.addAttribute("listOfMedicalHistory", listOfMedicalHistory);
 		return "patientscard";
+	}
+	
+	private List<Patient> sortPatients(List<Patient> unsortedListOfPatients) {
+		unsortedListOfPatients.sort(Comparator.comparing(Patient::getLastName).thenComparing(Patient::getFirstName));
+		return unsortedListOfPatients;
 	}
 
 	@Override
@@ -93,6 +82,14 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("allPatients", allPatients);
 		model.addAttribute("patient", patient);
 	}
+	
+	@Override
+	public String searchPatient(Model model, String search) {
+		allPatients.clear();
+		allPatients = patientRepository.findByLastNameOrFirstName(search);
+		model.addAttribute("allPatients", allPatients);
+		return "patientspage";
+	}
 
 	public boolean isDisplayVisits() {
 		return displayVisits;
@@ -101,6 +98,5 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	public void setDisplayVisits(boolean displayVisits) {
 		this.displayVisits = displayVisits;
 	}
-
 
 }
