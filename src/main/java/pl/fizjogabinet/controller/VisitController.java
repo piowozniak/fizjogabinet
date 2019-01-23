@@ -17,7 +17,7 @@ import pl.fizjogabinet.service.CrudService;
 public class VisitController {
 	
 	
-	private final CrudService visitService;
+	private final CrudService<Visit> visitService;
 	
 	@Autowired
 	public VisitController(@Qualifier("visit") CrudService visitService) {

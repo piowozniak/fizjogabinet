@@ -18,7 +18,7 @@
 </head>
 <body>
 
-	<h2>hello ${pageContext.request.remoteUser}</h2>
+	<h2>FizjoGabinet ${pageContext.request.remoteUser}</h2>
 
 	<c:url value="/logout" var="logoutUrl" />
 	<form id="logout" action="${logoutUrl}" method="post">
@@ -38,9 +38,9 @@
 			method="get">
 			<button type="submit">add patient</button>
 		</f:form>
-		<f:form style="display: inline;" action="${contextPath }/addtherapist"
+		<f:form style="display: inline;" action="${contextPath }/controlpanel"
 			method="get">
-			<button type="submit">add therapist</button>
+			<button type="submit">control panel</button>
 		</f:form>
 
 		<!--  <a class="button"

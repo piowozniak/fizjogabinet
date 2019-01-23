@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import pl.fizjogabinet.dto.MedicalHistoryDTO;
 
 import pl.fizjogabinet.entity.Patient;
+import pl.fizjogabinet.entity.Therapist;
 import pl.fizjogabinet.repository.PatientRepository;
+import pl.fizjogabinet.repository.TherapistRepository;
 import pl.fizjogabinet.service.AdminService;
 import pl.fizjogabinet.service.ModelService;
 
@@ -17,15 +19,17 @@ import pl.fizjogabinet.service.ModelService;
 public class AdminServiceImpl implements AdminService, ModelService {
 
 	private final PatientRepository patientRepository;
+	private final TherapistRepository therapistRepository;
 	private List<Patient> allPatients = new ArrayList<>();
 	private Patient patient;
 	private List<MedicalHistoryDTO> listOfMedicalHistory = new ArrayList<>();
 	private boolean displayVisits = false;
 
 	@Autowired
-	public AdminServiceImpl(PatientRepository patientRepository) {
+	public AdminServiceImpl(PatientRepository patientRepository, TherapistRepository therapistRepository) {
 		super();
 		this.patientRepository = patientRepository;
+		this.therapistRepository = therapistRepository;
 	}
 
 	@Override
@@ -90,6 +94,14 @@ public class AdminServiceImpl implements AdminService, ModelService {
 		model.addAttribute("allPatients", allPatients);
 		return "patientspage";
 	}
+	@Override
+	public String displayControlPanel(Model model) {
+		Comparator<Therapist> comparator = Comparator.comparing(t -> t.getLastName());
+		List<Therapist> therapists = therapistRepository.findAll();
+		therapists.sort(comparator);
+		model.addAttribute("therapists", therapists);
+		return "controlpanel";
+	}
 
 	public boolean isDisplayVisits() {
 		return displayVisits;
@@ -98,5 +110,6 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	public void setDisplayVisits(boolean displayVisits) {
 		this.displayVisits = displayVisits;
 	}
+
 
 }

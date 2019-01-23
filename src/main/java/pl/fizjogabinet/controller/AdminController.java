@@ -60,5 +60,10 @@ public class AdminController {
 		return adminService.searchPatient(model, search);
 	}
 	
+	@GetMapping(path="/controlpanel")
+	public String displayControlPanel(Model model) {
+		return adminService.displayControlPanel(model);
+	}
+	
 
 }

@@ -15,7 +15,7 @@ import pl.fizjogabinet.service.CrudService;
 @ComponentScan(basePackages="pl.fizjogabinet")
 public class PatientController {
 	
-	private CrudService patientService;
+	private final CrudService patientService;
 	 
 	@Autowired
 	public PatientController(@Qualifier("patient") CrudService patientService) {

@@ -18,5 +18,6 @@ public interface AdminService {
 	String displayVisits(Model model);
 	String displayMedicalHistory(Model model, Long id);
 	String searchPatient(Model model, String search);
+	String displayControlPanel(Model model);
 
 }

@@ -16,9 +16,8 @@ import pl.fizjogabinet.service.CrudService;
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
 public class HypothesisController {
-	
-	
-	private CrudService hypothesisService;
+		
+	private final CrudService hypothesisService;
 	
 	@Autowired
 	public HypothesisController(@Qualifier("hypothesis") CrudService hypothesisService) {
