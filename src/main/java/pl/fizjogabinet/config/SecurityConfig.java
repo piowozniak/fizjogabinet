@@ -67,7 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/homepage").access("hasRole('ROLE_ADMIN')")
+//			.antMatchers("/homepage").access("hasRole('ROLE_ADMIN')")
+		.antMatchers("/", "/loginpage").permitAll()
+        .anyRequest().authenticated()
 			.and()
 				.formLogin().loginPage("/loginpage")
 				.defaultSuccessUrl("/homepage")
