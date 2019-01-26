@@ -1,5 +1,9 @@
 package pl.fizjogabinet.controller;
 
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,7 +35,7 @@ public class VisitController {
 	}
 	
 	@RequestMapping(path="/addvisit")
-	public String addVisitFormConfirmation(Model model, @ModelAttribute("visit") Visit visit) {
+	public String addVisitFormConfirmation(Model model, @ModelAttribute("visit") Visit visit) throws SerialException, SQLException {
 		return visitService.addFormConfirmation(model, visit);
 	}
 	

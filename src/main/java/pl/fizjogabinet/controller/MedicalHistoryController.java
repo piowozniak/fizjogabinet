@@ -1,5 +1,9 @@
 package pl.fizjogabinet.controller;
 
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +36,7 @@ public class MedicalHistoryController {
 	}
 	
 	@PostMapping(path="/addmedicalhistory")
-	public String addMedicalHistory(Model model, @ModelAttribute("medicalHistory") MedicalHistory medicalHistory) {
+	public String addMedicalHistory(Model model, @ModelAttribute("medicalHistory") MedicalHistory medicalHistory) throws SerialException, SQLException {
 		return medicalHistoryService.addFormConfirmation(model, medicalHistory);
 	}
 

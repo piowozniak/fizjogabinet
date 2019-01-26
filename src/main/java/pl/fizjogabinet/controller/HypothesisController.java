@@ -1,5 +1,9 @@
 package pl.fizjogabinet.controller;
 
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +34,7 @@ public class HypothesisController {
 		return hypothesisService.addForm(model, id);
 	}
 	@PostMapping(path="/addhypothesis")
-	public String addHypothesisConfirmation(Model model, @ModelAttribute("hypothesis") Hypothesis hypothesis) {
+	public String addHypothesisConfirmation(Model model, @ModelAttribute("hypothesis") Hypothesis hypothesis) throws SerialException, SQLException {
 		return hypothesisService.addFormConfirmation(model, hypothesis);
 	}
 

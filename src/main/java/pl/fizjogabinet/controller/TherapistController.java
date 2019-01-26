@@ -1,5 +1,9 @@
 package pl.fizjogabinet.controller;
 
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -28,7 +32,7 @@ public class TherapistController {
 	}
 	
 	@PostMapping(path="/addtherapist")
-	public String addTherapistConfirmation(@ModelAttribute("therapist") Therapist therapist, Model model) {
+	public String addTherapistConfirmation(@ModelAttribute("therapist") Therapist therapist, Model model) throws SerialException, SQLException {
 		return therapistService.addFormConfirmation(model, therapist);
 	}
 	

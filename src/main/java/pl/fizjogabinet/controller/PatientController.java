@@ -1,5 +1,9 @@
 package pl.fizjogabinet.controller;
 
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,7 +33,7 @@ public class PatientController {
 	}
 	
 	@RequestMapping(path="/addpatientconfirmation")
-	public String addPatientConfirmation(Model model, @ModelAttribute("patient") PatientDTO patient) {
+	public String addPatientConfirmation(Model model, @ModelAttribute("patient") PatientDTO patient) throws SerialException, SQLException {
 		return patientService.addFormConfirmation(model, patient);
 	}
 }

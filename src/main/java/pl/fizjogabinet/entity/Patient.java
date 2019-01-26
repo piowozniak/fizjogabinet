@@ -26,7 +26,8 @@ public class Patient {
 	private List<MedicalHistory> medicalHistory;
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="patient")
 	private List<Visit> visits;
-
+	@OneToMany(mappedBy="patient")
+	private List<Attachement> attachements;
 	
 	public Long getId() {
 		return id;
@@ -71,6 +72,11 @@ public class Patient {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
-	
+	public List<Attachement> getAttachements() {
+		return attachements;
+	}
+	public void setAttachements(List<Attachement> attachements) {
+		this.attachements = attachements;
+	}
 
 }

@@ -23,12 +23,11 @@
 	</f:form>
 
 	</br>
-
 	<h2>patients card</h2>
 	<td>${patient.firstName }</td>
 	<td>${patient.lastName}</td>
 
-	<h2>visits ${displayVisits }</h2>
+	<h2>visits </h2>
 	<f:form style="display: inline;" action="${contextPath }/displayvisits"
 		method="get">
 		<button type="submit">display visits</button>
@@ -36,7 +35,8 @@
 	<f:form style="display: inline;"
 		action="${contextPath }/addvisit/${patient.id }" method="get">
 		<button type="submit">add visit</button>
-	</f:form></br>
+	</f:form>
+	</br>
 	<c:if test="${displayVisits }">
 
 		<c:forEach items="${patient.visits }" var="visit">
@@ -46,6 +46,30 @@
 			</br>
 		</c:forEach>
 	</c:if>
+	<c:if test="${!patient.attachements.isEmpty() }">
+		<h2>attachements</h2>
+		<c:forEach items="${patient.attachements }" var="attachement">
+			<td>${attachement.fileName }</td>
+			<f:form style="display: inline;"
+				action="${contextPath }/downloadFile/${attachement.id }" method="get">
+				<button type="submit">download</button>
+				</br>
+			</f:form>
+		</c:forEach>
+	</c:if>
+	<f:form method="POST"
+		action="${contextPath }/uploadFile/${ patient.id}?${_csrf.parameterName}=${_csrf.token}"
+		enctype="multipart/form-data">
+		<table>
+			<tr>
+
+				<td><input type="file" name="file" /></td>
+			</tr>
+			<tr>
+				<td><button type="submit">submit</button></td>
+			</tr>
+		</table>
+	</f:form>
 	<h2>medical history</h2>
 	<f:form style="display: inline;"
 		action="${contextPath }/addmedicalhistory/${patient.id }" method="get">
