@@ -1,6 +1,7 @@
 package pl.fizjogabinet.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import pl.fizjogabinet.dto.MedicalHistoryDTO;
 
 import pl.fizjogabinet.entity.Patient;
 import pl.fizjogabinet.entity.Therapist;
+import pl.fizjogabinet.entity.Visit;
 import pl.fizjogabinet.repository.PatientRepository;
 import pl.fizjogabinet.repository.TherapistRepository;
 import pl.fizjogabinet.service.AdminService;
@@ -43,7 +45,9 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	@Override
 	public String displayPatientsCard(Long id, Model model) {
 		patient = patientRepository.findOne(id);
-//		PatientDTO patientDTO = new PatientDTO(patient);
+		Comparator<Visit> sortedVisits = Comparator.comparing(Visit::getDate).reversed();
+		Collections.sort(patient.getVisits(), sortedVisits);
+		
 		listOfMedicalHistory.clear();
 		patient.getMedicalHistory().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
 		model.addAttribute("patient", patient);
@@ -52,7 +56,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	}
 	
 	private List<Patient> sortPatients(List<Patient> unsortedListOfPatients) {
-		unsortedListOfPatients.sort(Comparator.comparing(Patient::getLastName).thenComparing(Patient::getFirstName));
+		unsortedListOfPatients.sort(Comparator.comparing(Patient::getLastName, String::compareToIgnoreCase).thenComparing(Patient::getFirstName, String::compareToIgnoreCase));
 		return unsortedListOfPatients;
 	}
 

@@ -62,7 +62,6 @@
 		enctype="multipart/form-data">
 		<table>
 			<tr>
-
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr>

@@ -18,6 +18,7 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	private PatientRepository patientRepository;
 	@Autowired
 	private MedicalHistoryRepository medicalHistoryRepository;
+	private static final String[] flags = new String[] {"G", "Y", "R"};
 
 	@Override
 	public String addForm(Model model, Long id) {
@@ -25,6 +26,7 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 		MedicalHistory medicalHistory = new MedicalHistory();
 		medicalHistory.setPatient(patient);
 		model.addAttribute("medicalHistory", medicalHistory);
+		model.addAttribute("flags", flags);
 		return "addmedicalhistory";
 	}
 
@@ -33,6 +35,10 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 		MedicalHistory medicalHistory = (MedicalHistory) o;
 		medicalHistoryRepository.save(medicalHistory);
 		return "redirect:/displaypatientscard/"+medicalHistory.getPatient().getId();
+	}
+
+	public static String[] getFlags() {
+		return flags;
 	}
 
 }
