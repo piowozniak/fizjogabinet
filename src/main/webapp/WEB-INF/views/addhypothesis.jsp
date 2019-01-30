@@ -29,8 +29,9 @@
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<button type="submit">save</button>
-			<f:input type="hidden" path="medicalHistory.id"
+			<f:hidden path="medicalHistory.id"
 			 />
+			 <f:hidden path="id" />
 	</f:form>
 
 	<f:form action="${contextPath }/homepage" method="get">

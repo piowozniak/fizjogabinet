@@ -51,6 +51,7 @@
 		<button type="submit">save</button>
 		<div>
 				<f:hidden path="patient.id" />
+				<f:hidden path="id" />
 		</div>
 	</f:form>
 

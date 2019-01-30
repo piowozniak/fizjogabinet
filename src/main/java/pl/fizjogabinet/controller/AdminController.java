@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pl.fizjogabinet.dto.MedicalHistoryDTO;
-import pl.fizjogabinet.dto.PatientDTO;
-import pl.fizjogabinet.entity.Hypothesis;
-import pl.fizjogabinet.entity.MedicalHistory;
-import pl.fizjogabinet.entity.Patient;
-import pl.fizjogabinet.entity.User;
-import pl.fizjogabinet.service.AdminService;
-import pl.fizjogabinet.service.MedicalHistoryService;
+import pl.fizjogabinet.model.dto.MedicalHistoryDTO;
+import pl.fizjogabinet.model.dto.PatientDTO;
+import pl.fizjogabinet.model.entity.Hypothesis;
+import pl.fizjogabinet.model.entity.MedicalHistory;
+import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.entity.User;
+import pl.fizjogabinet.model.service.AdminService;
+import pl.fizjogabinet.model.service.MedicalHistoryService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")

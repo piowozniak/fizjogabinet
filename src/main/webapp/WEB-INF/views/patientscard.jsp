@@ -24,10 +24,14 @@
 
 	</br>
 	<h2>patients card</h2>
+	<f:form style="display: inline;"
+		action="${contextPath }/editpatient/${patient.id }" method="get">
+		<button type="submit">edit details</button>
+	</f:form>
 	<td>${patient.firstName }</td>
 	<td>${patient.lastName}</td>
 
-	<h2>visits </h2>
+	<h2>visits</h2>
 	<f:form style="display: inline;" action="${contextPath }/displayvisits"
 		method="get">
 		<button type="submit">display visits</button>
@@ -43,6 +47,10 @@
 			<td>${visit.date }</td>
 			<td>${visit.type }</td>
 			<td>${visit.therapist.firstName }</td>
+			<f:form style="display: inline;"
+				action="${contextPath }/editvisit/${visit.id }" method="get">
+				<button type="submit">edit visit</button>
+			</f:form>
 			</br>
 		</c:forEach>
 	</c:if>
@@ -51,7 +59,8 @@
 		<c:forEach items="${patient.attachements }" var="attachement">
 			<td>${attachement.fileName }</td>
 			<f:form style="display: inline;"
-				action="${contextPath }/downloadFile/${attachement.id }" method="get">
+				action="${contextPath }/downloadFile/${attachement.id }"
+				method="get">
 				<button type="submit">download</button>
 				</br>
 			</f:form>
@@ -84,15 +93,29 @@
 			<button type="submit">display medical history
 				${thecount.count }</button>
 		</f:form>
+		</br>
 		<c:if test="${medicalHistory.displayMedicalHistory }">
+			<f:form style="display: inline;"
+				action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
+				method="get">
+				<button type="submit">edit medical history</button>
+			</f:form>
+			</br>
 			<div>${medicalHistory.medicalHistory.date }</div>
 			<div>${medicalHistory.medicalHistory.medication }</div>
 			<div>${medicalHistory.medicalHistory.treatment }</div>
+
 			<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
 				var="hypothesis" varStatus="hypo">
 				<td>hipoteza ${hypo.count }</td>
+				<f:form style="display: inline;"
+					action="${contextPath }/edithypothesis/${hypothesis.id }"
+					method="get">
+					<button type="submit">edit hypothesis</button>
+				</f:form>
 				</br>
 				<td>${hypothesis.description }</td>
+
 				</br>
 			</c:forEach>
 			<f:form style="display: inline;"

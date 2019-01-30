@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.fizjogabinet.dto.MedicalHistoryDTO;
-import pl.fizjogabinet.entity.MedicalHistory;
-import pl.fizjogabinet.service.CrudService;
+import pl.fizjogabinet.model.dto.MedicalHistoryDTO;
+import pl.fizjogabinet.model.entity.MedicalHistory;
+import pl.fizjogabinet.model.service.CrudService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
@@ -40,4 +40,8 @@ public class MedicalHistoryController {
 		return medicalHistoryService.addFormConfirmation(model, medicalHistory);
 	}
 
+	@GetMapping(path="/editmedicalhistory/{id}")
+	public String editMedicalHistoryForm(@PathVariable("id") Long id, Model model) {
+		return medicalHistoryService.editForm(model, id);
+	}
 }

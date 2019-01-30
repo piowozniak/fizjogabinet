@@ -28,7 +28,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "pl.fizjogabinet")
 @EnableTransactionManagement // umozliwia transakcje transactional
 @EnableWebMvc
-@EnableJpaRepositories(basePackages="pl.fizjogabinet.repository")
+@EnableJpaRepositories(basePackages="pl.fizjogabinet.model.repository")
 @Import(value = {SecurityConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
 

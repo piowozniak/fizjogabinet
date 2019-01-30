@@ -10,10 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.fizjogabinet.entity.Therapist;
-import pl.fizjogabinet.service.CrudService;
+import pl.fizjogabinet.model.entity.Therapist;
+import pl.fizjogabinet.model.service.CrudService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
@@ -35,7 +36,10 @@ public class TherapistController {
 	public String addTherapistConfirmation(@ModelAttribute("therapist") Therapist therapist, Model model) throws SerialException, SQLException {
 		return therapistService.addFormConfirmation(model, therapist);
 	}
-	
+	@GetMapping(path="/edittherapist/{id}")
+	public String editTherapistForm(@PathVariable("id") Long id, Model model) {
+		return therapistService.editForm(model, id);
+	}
 	
 
 }

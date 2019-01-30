@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.fizjogabinet.dto.PatientDTO;
-import pl.fizjogabinet.service.CrudService;
+import pl.fizjogabinet.model.dto.PatientDTO;
+import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.service.CrudService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
@@ -33,7 +36,12 @@ public class PatientController {
 	}
 	
 	@RequestMapping(path="/addpatientconfirmation")
-	public String addPatientConfirmation(Model model, @ModelAttribute("patient") PatientDTO patient) throws SerialException, SQLException {
+	public String addPatientConfirmation(Model model, @ModelAttribute("patient") Patient patient) throws SerialException, SQLException {
 		return patientService.addFormConfirmation(model, patient);
+	}
+	
+	@GetMapping(path="/editpatient/{id}")
+	public String editPatientForm(@PathVariable("id") Long id, Model model) {
+		return patientService.editForm(model, id);
 	}
 }

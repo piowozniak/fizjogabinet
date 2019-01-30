@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.fizjogabinet.entity.Hypothesis;
-import pl.fizjogabinet.service.CrudService;
+import pl.fizjogabinet.model.entity.Hypothesis;
+import pl.fizjogabinet.model.service.CrudService;
 
 @Controller
 @ComponentScan(basePackages="pl.fizjogabinet")
@@ -36,6 +36,11 @@ public class HypothesisController {
 	@PostMapping(path="/addhypothesis")
 	public String addHypothesisConfirmation(Model model, @ModelAttribute("hypothesis") Hypothesis hypothesis) throws SerialException, SQLException {
 		return hypothesisService.addFormConfirmation(model, hypothesis);
+	}
+	
+	@GetMapping(path="/edithypothesis/{id}")
+	public String editHypothesisForm(@PathVariable("id") Long id, Model model) {
+		return hypothesisService.editForm(model, id);
 	}
 
 }

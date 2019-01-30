@@ -35,7 +35,7 @@
 		<td>${therapist.firstName }</td>
 		<td>${therapist.lastName }</td>
 		<f:form style="display: inline;"
-			action="${contextPath }/edit/${therapist.id }"
+			action="${contextPath }/edittherapist/${therapist.id }"
 			method="get">
 			<button type="submit">edit</button>
 		</f:form>

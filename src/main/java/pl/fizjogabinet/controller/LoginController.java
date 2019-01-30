@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.fizjogabinet.entity.User;
-import pl.fizjogabinet.service.SecurityService;
-import pl.fizjogabinet.service.UserService;
-import pl.fizjogabinet.validator.UserValidator;
+import pl.fizjogabinet.model.entity.User;
+import pl.fizjogabinet.model.service.SecurityService;
+import pl.fizjogabinet.model.service.UserService;
+import pl.fizjogabinet.model.validator.UserValidator;
 
 @Controller
 public class LoginController {
