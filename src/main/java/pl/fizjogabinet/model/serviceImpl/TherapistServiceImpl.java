@@ -34,4 +34,16 @@ public class TherapistServiceImpl implements CrudService<Object> {
 		return "addtherapist";
 	}
 
+	@Override
+	public String deleteForm(Model model, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteFormConfirmation(Model model, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

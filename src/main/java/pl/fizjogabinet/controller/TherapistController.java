@@ -41,5 +41,15 @@ public class TherapistController {
 		return therapistService.editForm(model, id);
 	}
 	
+	@GetMapping(path="/deletetherapist/{id}")
+	public String deleteVisitForm(@PathVariable("id") Long id, Model model) {
+		return therapistService.deleteForm(model, id);
+	}
+	
+	@PostMapping(path="/deletetherapist/{id}")
+	public String deleteVisitFormConfirmation(@PathVariable("id") Long id, Model model) {
+		return therapistService.deleteFormConfirmation(model, id);
+	}
+	
 
 }

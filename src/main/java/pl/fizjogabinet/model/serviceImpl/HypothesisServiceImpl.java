@@ -51,4 +51,18 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 		return hypothesis;
 	}
 
+	@Override
+	public String deleteForm(Model model, Long id) {
+		Hypothesis hypothesis = hypothesisRepository.findOne(id);
+		model.addAttribute("hypothesis", hypothesis);
+		return "deleteconfirmation";
+	}
+
+	@Override
+	public String deleteFormConfirmation(Model model, Long id) {
+		Hypothesis hypothesis = hypothesisRepository.findOne(id);
+		hypothesisRepository.delete(hypothesis);
+		return "redirect:/displaypatientscard/"+hypothesis.getMedicalHistory().getPatient().getId();
+	}
+
 }

@@ -28,6 +28,10 @@
 		action="${contextPath }/editpatient/${patient.id }" method="get">
 		<button type="submit">edit details</button>
 	</f:form>
+	<f:form style="display: inline;"
+		action="${contextPath }/deletepatient/${patient.id }" method="get">
+		<button type="submit">delete patient</button>
+	</f:form>
 	<td>${patient.firstName }</td>
 	<td>${patient.lastName}</td>
 
@@ -50,6 +54,10 @@
 			<f:form style="display: inline;"
 				action="${contextPath }/editvisit/${visit.id }" method="get">
 				<button type="submit">edit visit</button>
+			</f:form>
+			<f:form style="display: inline;"
+				action="${contextPath }/deletevisit/${visit.id }" method="get">
+				<button type="submit">delete visit</button>
 			</f:form>
 			</br>
 		</c:forEach>
@@ -100,6 +108,11 @@
 				method="get">
 				<button type="submit">edit medical history</button>
 			</f:form>
+			<f:form style="display: inline;"
+				action="${contextPath }/deletemedicalhistory/${medicalHistory.medicalHistory.id }"
+				method="get">
+				<button type="submit">delete medical history</button>
+			</f:form>
 			</br>
 			<div>${medicalHistory.medicalHistory.date }</div>
 			<div>${medicalHistory.medicalHistory.medication }</div>
@@ -112,6 +125,11 @@
 					action="${contextPath }/edithypothesis/${hypothesis.id }"
 					method="get">
 					<button type="submit">edit hypothesis</button>
+				</f:form>
+				<f:form style="display: inline;"
+					action="${contextPath }/deletehypothesis/${hypothesis.id }"
+					method="get">
+					<button type="submit">delete hypothesis</button>
 				</f:form>
 				</br>
 				<td>${hypothesis.description }</td>

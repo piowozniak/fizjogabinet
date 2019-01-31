@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import pl.fizjogabinet.model.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.model.repository.PatientRepository;
 import pl.fizjogabinet.model.service.CrudService;
@@ -18,6 +19,8 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	private PatientRepository patientRepository;
 	@Autowired
 	private MedicalHistoryRepository medicalHistoryRepository;
+	@Autowired
+	private HypothesisRepository hypothesisRepository;
 	private static final String[] flags = new String[] {"G", "Y", "R"};
 
 	@Override
@@ -59,6 +62,21 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 			return existingMedicalHistory;
 		}
 		return medicalHistory;
+	}
+
+	@Override
+	public String deleteForm(Model model, Long id) {
+		MedicalHistory medicalHistory = medicalHistoryRepository.findOne(id);
+		model.addAttribute("medicalHistory", medicalHistory);
+		return "deleteconfirmation";
+	}
+
+	@Override
+	public String deleteFormConfirmation(Model model, Long id) {
+		MedicalHistory medicalHistory = medicalHistoryRepository.findOne(id);
+		medicalHistory.getHypothesis().stream().forEach(h -> hypothesisRepository.delete(h.getId()));
+		medicalHistoryRepository.delete(medicalHistory);
+		return "redirect:/displaypatientscard/" + medicalHistory.getPatient().getId();
 	}
 
 }

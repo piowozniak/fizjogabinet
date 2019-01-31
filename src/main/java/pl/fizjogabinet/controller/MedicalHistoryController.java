@@ -44,4 +44,14 @@ public class MedicalHistoryController {
 	public String editMedicalHistoryForm(@PathVariable("id") Long id, Model model) {
 		return medicalHistoryService.editForm(model, id);
 	}
+	
+	@GetMapping(path="/deletemedicalhistory/{id}")
+	public String deleteMedicalHistoryForm(@PathVariable("id") Long id, Model model) {
+		return medicalHistoryService.deleteForm(model, id);
+	}
+	
+	@PostMapping(path="/deletemedicalhistory/{id}")
+	public String deleteMedicalHistoryFormConfirmation(@PathVariable("id") Long id, Model model) {
+		return medicalHistoryService.deleteFormConfirmation(model, id);
+	}
 }

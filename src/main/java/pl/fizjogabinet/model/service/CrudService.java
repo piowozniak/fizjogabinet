@@ -15,6 +15,8 @@ public interface CrudService<T> {
 	String addForm(Model model, Long id);
 	String addFormConfirmation(Model model, T t) throws SerialException, SQLException;
 	String editForm(Model model, Long id);
+	String deleteForm(Model model, Long id);
+	String deleteFormConfirmation(Model model, Long id);
 
 	
 }

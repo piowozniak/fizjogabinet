@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.entity.Therapist;
 import pl.fizjogabinet.model.entity.Visit;
+import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.repository.VisitRepository;
 import pl.fizjogabinet.model.service.CrudService;
@@ -46,5 +47,19 @@ public class VisitServiceImpl implements CrudService<Object> {
 		Visit visit = visitRepository.findOne(id);
 		model.addAttribute("visit", visit);
 		return "addvisit";
+	}
+
+	@Override
+	public String deleteForm(Model model, Long id) {
+		Visit visit = visitRepository.findOne(id);
+		model.addAttribute("visit", visit);
+		return "deleteconfirmation";
+	}
+
+	@Override
+	public String deleteFormConfirmation(Model model, Long id) {
+		Visit visit = visitRepository.findOne(id);
+		visitRepository.delete(visit);
+		return "redirect:/displaypatientscard/"+visit.getPatient().getId();
 	}
 }

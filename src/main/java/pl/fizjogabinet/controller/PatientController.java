@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.fizjogabinet.model.dto.PatientDTO;
@@ -43,5 +44,15 @@ public class PatientController {
 	@GetMapping(path="/editpatient/{id}")
 	public String editPatientForm(@PathVariable("id") Long id, Model model) {
 		return patientService.editForm(model, id);
+	}
+	
+	@GetMapping(path="/deletepatient/{id}")
+	public String deletePatientForm(@PathVariable("id") Long id, Model model) {
+		return patientService.deleteForm(model, id);
+	}
+	
+	@PostMapping(path="/deletepatient/{id}")
+	public String deletePatientFormConfirmation(@PathVariable("id") Long id, Model model) {
+		return patientService.deleteFormConfirmation(model, id);
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.fizjogabinet.model.entity.Visit;
@@ -43,6 +44,16 @@ public class VisitController {
 	@GetMapping(path="/editvisit/{id}")
 	public String editVisitForm(@PathVariable("id") Long id, Model model) {
 		return visitService.editForm(model, id);
+	}
+	
+	@GetMapping(path="/deletevisit/{id}")
+	public String deleteVisitForm(@PathVariable("id") Long id, Model model) {
+		return visitService.deleteForm(model, id);
+	}
+	
+	@PostMapping(path="/deletevisit/{id}")
+	public String deleteVisitFormConfirmation(@PathVariable("id") Long id, Model model) {
+		return visitService.deleteFormConfirmation(model, id);
 	}
 
 }

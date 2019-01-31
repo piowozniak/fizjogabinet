@@ -61,4 +61,16 @@ public class PatientServiceImpl implements CrudService<Object> {
 		return "registerpatientform";
 	}
 
+	@Override
+	public String deleteForm(Model model, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteFormConfirmation(Model model, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
