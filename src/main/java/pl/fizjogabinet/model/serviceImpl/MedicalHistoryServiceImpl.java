@@ -74,8 +74,8 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	@Override
 	public String deleteFormConfirmation(Model model, Long id) {
 		MedicalHistory medicalHistory = medicalHistoryRepository.findOne(id);
-		medicalHistory.getHypothesis().stream().forEach(h -> hypothesisRepository.delete(h.getId()));
-		medicalHistoryRepository.delete(medicalHistory);
+//		medicalHistory.getHypothesis().stream().forEach(h -> hypothesisRepository.delete(h.getId()));
+		medicalHistoryRepository.delete(medicalHistory.getId());
 		return "redirect:/displaypatientscard/" + medicalHistory.getPatient().getId();
 	}
 

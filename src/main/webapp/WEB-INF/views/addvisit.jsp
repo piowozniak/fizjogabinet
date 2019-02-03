@@ -27,7 +27,7 @@
 
 	<f:form action="${contextPath }/addvisit" method="post"
 		modelAttribute="visit">
-
+			<div>${visit.id }</div>
 		<div>
 			Date:
 			<f:input id="datepicker" path="date" />
@@ -43,6 +43,7 @@
 		</div>
 		<div>
 			<f:hidden path="patient.id" />
+			<f:hidden value="${visit.id}" path="id" />
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />

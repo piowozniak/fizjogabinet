@@ -33,7 +33,7 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 		Hypothesis hypothesis = (Hypothesis) o;
 		hypothesis = ifIdNullGetNewHypothesis_orEditExisting(hypothesis);
 		hypothesisRepository.save(hypothesis);
-		return "redirect:/displaypatientscard/"+medicalHistory.getPatient().getId();
+		return "redirect:/displaypatientscard/"+hypothesis.getMedicalHistory().getPatient().getId();
 	}
 
 	@Override
@@ -61,6 +61,9 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 	@Override
 	public String deleteFormConfirmation(Model model, Long id) {
 		Hypothesis hypothesis = hypothesisRepository.findOne(id);
+//		MedicalHistory medicalHistory = medicalHistoryRepository.findOne(hypothesis.getMedicalHistory().getId());
+//		medicalHistory.getHypothesis().remove(hypothesis);
+//		medicalHistoryRepository.save(medicalHistory);
 		hypothesisRepository.delete(hypothesis);
 		return "redirect:/displaypatientscard/"+hypothesis.getMedicalHistory().getPatient().getId();
 	}

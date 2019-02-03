@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.entity.Therapist;
 import pl.fizjogabinet.model.entity.Visit;
@@ -38,6 +39,7 @@ public class VisitServiceImpl implements CrudService<Object> {
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
 		Visit visit = (Visit) o;
+		visit = ifIdNullGetNewMedicalHistory_orEditExisting(visit);
 		visitRepository.save((Visit) o);
 		return "redirect:/displaypatientscard/" + visit.getPatient().getId();
 	}
@@ -45,7 +47,10 @@ public class VisitServiceImpl implements CrudService<Object> {
 	@Override
 	public String editForm(Model model, Long id) {
 		Visit visit = visitRepository.findOne(id);
+		List<Therapist> therapists = therapistRepository.findAll();
+		model.addAttribute("therapists", therapists);
 		model.addAttribute("visit", visit);
+		model.addAttribute("typeOfVisit", TYPE_OF_VISIT);
 		return "addvisit";
 	}
 
@@ -61,5 +66,17 @@ public class VisitServiceImpl implements CrudService<Object> {
 		Visit visit = visitRepository.findOne(id);
 		visitRepository.delete(visit);
 		return "redirect:/displaypatientscard/"+visit.getPatient().getId();
+	}
+	
+	private Visit ifIdNullGetNewMedicalHistory_orEditExisting(Visit visit) {
+		if (visit.getId() != null) {
+			Visit existingVisit = visitRepository.findOne(visit.getId());
+			existingVisit.setDate(visit.getDate());
+			existingVisit.setPatient(visit.getPatient());
+			existingVisit.setTherapist(visit.getTherapist());
+			existingVisit.setType(visit.getType());
+			return existingVisit;
+		}
+		return visit;
 	}
 }

@@ -63,14 +63,16 @@ public class PatientServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String deleteForm(Model model, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Patient patient = patientRepository.findOne(id);
+		model.addAttribute("patient", patient);
+		return "deleteconfirmation";
 	}
 
 	@Override
 	public String deleteFormConfirmation(Model model, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Patient patient = patientRepository.findOne(id);
+		patientRepository.delete(patient);
+		return "redirect:/patientspage";
 	}
 
 }

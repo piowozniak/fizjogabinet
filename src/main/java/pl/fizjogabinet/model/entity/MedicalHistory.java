@@ -25,10 +25,10 @@ public class MedicalHistory {
 	private String medication;
 	private String flag;
 	private String treatment;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "medicalHistory")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "medicalHistory")
 	private List<Hypothesis> hypothesis = new ArrayList<>();
 
 	public Long getId() {

@@ -40,7 +40,7 @@
 			<button type="submit">edit</button>
 		</f:form>
 		<f:form style="display: inline;"
-			action="${contextPath }/remove/${therapist.id }"
+			action="${contextPath }/deletetherapist/${therapist.id }"
 			method="get">
 			<button type="submit">remove</button>
 		</f:form>

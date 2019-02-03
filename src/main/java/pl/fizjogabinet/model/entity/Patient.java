@@ -22,7 +22,7 @@ public class Patient {
 	private String lastName;
 	private String dateOfBirth;
 	private String phoneNumber;
-	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<MedicalHistory> medicalHistory;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "patient")
 	private List<Visit> visits;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import pl.fizjogabinet.model.entity.Therapist;
+import pl.fizjogabinet.model.entity.Visit;
 import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
@@ -23,6 +24,7 @@ public class TherapistServiceImpl implements CrudService<Object> {
 	@Override
 	public String addFormConfirmation(Model model, Object t) {
 		Therapist therapist = (Therapist) t;
+		therapist = ifIdNullGetNewMedicalHistory_orEditExisting(therapist);
 		therapistRepository.save(therapist);
 		return "redirect:/controlpanel";
 	}
@@ -36,14 +38,28 @@ public class TherapistServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String deleteForm(Model model, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Therapist therapist = therapistRepository.findOne(id);
+		model.addAttribute("therapist", therapist);
+		return "deleteconfirmation";
 	}
 
 	@Override
 	public String deleteFormConfirmation(Model model, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Therapist therapist = therapistRepository.findOne(id);
+		therapistRepository.delete(therapist);
+		return "redirect:/controlpanel";
+	}
+	
+	private Therapist ifIdNullGetNewMedicalHistory_orEditExisting(Therapist therapist) {
+		if (therapist.getId() != null) {
+			Therapist existingTherapist = therapistRepository.findOne(therapist.getId());
+			existingTherapist.setFirstName(therapist.getFirstName());
+			existingTherapist.setLastName(therapist.getLastName());
+			existingTherapist.setEmail(therapist.getEmail());
+			existingTherapist.setPhoneNumber(therapist.getPhoneNumber());
+			return existingTherapist;
+		}
+		return therapist;
 	}
 
 }

@@ -44,12 +44,12 @@ public class HypothesisController {
 	}
 	
 	@GetMapping(path="/deletehypothesis/{id}")
-	public String deleteHyphesisForm(@PathVariable("id") Long id, Model model) {
+	public String deleteHypothesisForm(@PathVariable("id") Long id, Model model) {
 		return hypothesisService.deleteForm(model, id);
 	}
 	
 	@PostMapping(path="/deletehypothesis/{id}")
-	public String deleteHyphesisFormConfirmation(@PathVariable("id") Long id, Model model) {
+	public String deleteHypothesisFormConfirmation(@PathVariable("id") Long id, Model model) {
 		return hypothesisService.deleteFormConfirmation(model, id);
 	}
 
