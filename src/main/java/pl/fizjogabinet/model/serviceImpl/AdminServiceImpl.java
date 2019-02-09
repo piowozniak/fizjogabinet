@@ -46,8 +46,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	public String displayPatientsCard(Long id, Model model) {
 		patient = patientRepository.findOne(id);
 		Comparator<Visit> sortedVisits = Comparator.comparing(Visit::getDate).reversed();
-		Collections.sort(patient.getVisits(), sortedVisits);
-		
+		Collections.sort(patient.getVisits(), sortedVisits);	
 		listOfMedicalHistory.clear();
 		patient.getMedicalHistory().forEach(m -> listOfMedicalHistory.add(new MedicalHistoryDTO(m)));
 		model.addAttribute("patient", patient);
@@ -94,7 +93,8 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	@Override
 	public String searchPatient(Model model, String search) {
 		allPatients.clear();
-		allPatients = patientRepository.findByLastNameOrFirstName(search);
+		allPatients = patientRepository.findByName(search);
+		allPatients = sortPatients(allPatients);
 		model.addAttribute("allPatients", allPatients);
 		return "patientspage";
 	}

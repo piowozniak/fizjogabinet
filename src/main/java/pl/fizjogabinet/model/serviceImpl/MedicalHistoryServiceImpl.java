@@ -1,5 +1,7 @@
 package pl.fizjogabinet.model.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -53,7 +55,8 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 		return "addmedicalhistory";
 	}
 	private MedicalHistory ifIdNullGetNewMedicalHistory_orEditExisting(MedicalHistory medicalHistory) {
-		if (medicalHistory.getId() != null) {
+		Optional<Long> medicalHistoryId = Optional.ofNullable(medicalHistory.getId());
+		if (medicalHistoryId.isPresent()) {
 			MedicalHistory existingMedicalHistory = medicalHistoryRepository.findOne(medicalHistory.getId());
 			existingMedicalHistory.setDate(medicalHistory.getDate());
 			existingMedicalHistory.setFlag(medicalHistory.getFlag());

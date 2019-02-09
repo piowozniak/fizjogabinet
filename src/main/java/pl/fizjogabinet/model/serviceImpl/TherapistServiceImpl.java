@@ -1,5 +1,7 @@
 package pl.fizjogabinet.model.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -51,7 +53,7 @@ public class TherapistServiceImpl implements CrudService<Object> {
 	}
 	
 	private Therapist ifIdNullGetNewMedicalHistory_orEditExisting(Therapist therapist) {
-		if (therapist.getId() != null) {
+		if (Optional.ofNullable(therapist.getId()).isPresent()) {
 			Therapist existingTherapist = therapistRepository.findOne(therapist.getId());
 			existingTherapist.setFirstName(therapist.getFirstName());
 			existingTherapist.setLastName(therapist.getLastName());

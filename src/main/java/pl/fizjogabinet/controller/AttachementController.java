@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,16 @@ public class AttachementController {
 	@RequestMapping(path="/downloadFile/{id}")
 	public void downloadFile(Model model, @PathVariable("id") Long id, HttpServletResponse response) throws IOException, SQLException {
 		attachementService.download(model, id, response);
+	}
+	
+	@GetMapping(path="/removeFile/{id}")
+	public String removeFile(Model model, @PathVariable("id") Long id) {
+		return attachementService.remove(model, id);
+	}
+	
+	@PostMapping(path="/removeFile/{id}")
+	public String removeFileConfirm(Model model, @PathVariable("id") Long id) {
+		return attachementService.removeConfirm(model, id);
 	}
 
 }

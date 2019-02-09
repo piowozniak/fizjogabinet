@@ -12,10 +12,10 @@ INSERT INTO therapist (id, firstName, lastName) VALUES (2, "John", "Kebab");
 INSERT INTO therapist (id, firstName, lastName) VALUES (3, "Stasiu", "Hue");
 INSERT INTO therapist (id, firstName, lastName) VALUES (4, "Kazimierz", "Wielki");
 
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (1, "John", "Kebab", "1923-12-01", "66666666");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (2, "Pawel", "Cizemski", "1998-12-01", "77777777");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (3, "Tomek", "Mariolski", "1985-12-01", "55555555");
-INSERT INTO patient (id, firstName, lastName, dateOfBirth, phoneNumber) VALUES (4, "Mariusz", "Twardowski", "1988-12-01", "66666666");
+INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (1, "John", "Kebab", "John Kebab","1923-12-01", "66666666");
+INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (2, "Pawel", "Cizemski", "Pawel Cizemski","1998-12-01", "77777777");
+INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (3, "Tomek", "Mariolski", "Tomek Mariolski","1985-12-01", "55555555");
+INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (4, "Mariusz", "Twardowski", "Mariusz Twardowski","1988-12-01", "66666666");
 
 
 INSERT INTO medicalHistory (id, patient_id, date, medication, treatment) VALUES (1, 1, "2018-12-01", "Ibuprofen, Apap", "Leczyc okladami");

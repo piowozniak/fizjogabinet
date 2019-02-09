@@ -62,14 +62,20 @@
 			</br>
 		</c:forEach>
 	</c:if>
-	<c:if test="${!patient.attachements.isEmpty() }">
-		<h2>attachements</h2>
+	<h2>attachments</h2>
+	<c:if test="${!patient.attachements.isEmpty() }">		
 		<c:forEach items="${patient.attachements }" var="attachement">
 			<td>${attachement.fileName }</td>
 			<f:form style="display: inline;"
 				action="${contextPath }/downloadFile/${attachement.id }"
 				method="get">
 				<button type="submit">download</button>
+				
+			</f:form>
+			<f:form style="display: inline;"
+				action="${contextPath }/removeFile/${attachement.id }"
+				method="get">
+				<button type="submit">remove</button>
 				</br>
 			</f:form>
 		</c:forEach>

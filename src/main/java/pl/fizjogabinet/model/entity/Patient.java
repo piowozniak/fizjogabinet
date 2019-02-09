@@ -20,6 +20,7 @@ public class Patient {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String fullName;
 	private String dateOfBirth;
 	private String phoneNumber;
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -91,6 +92,14 @@ public class Patient {
 
 	public void setAttachements(List<Attachement> attachements) {
 		this.attachements = attachements;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 }

@@ -77,6 +77,15 @@ public class AttachementServiceImpl implements AttachementService{
 	@Override
 	public String remove(Model model, Long id) {
 		Attachement file = attachementRepository.findOne(id);
+		model.addAttribute("file", file);
+		return "deleteconfirmation";
+	}
+
+	@Override
+	public String removeConfirm(Model model, Long id) {
+		Attachement file = attachementRepository.findOne(id);
+		attachementRepository.delete(file);
 		return "redirect:/displaypatientscard/"+file.getPatient().getId();
 	}
-	}
+
+}

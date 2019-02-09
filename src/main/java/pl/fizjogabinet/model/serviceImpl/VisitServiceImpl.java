@@ -1,6 +1,7 @@
 package pl.fizjogabinet.model.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,8 @@ public class VisitServiceImpl implements CrudService<Object> {
 	}
 	
 	private Visit ifIdNullGetNewMedicalHistory_orEditExisting(Visit visit) {
-		if (visit.getId() != null) {
+		Optional<Long> visitId = Optional.ofNullable(visit.getId());
+		if (visitId.isPresent()) {
 			Visit existingVisit = visitRepository.findOne(visit.getId());
 			existingVisit.setDate(visit.getDate());
 			existingVisit.setPatient(visit.getPatient());

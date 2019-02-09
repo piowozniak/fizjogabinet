@@ -1,5 +1,7 @@
 package pl.fizjogabinet.model.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -33,7 +35,8 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 		Hypothesis hypothesis = (Hypothesis) o;
 		hypothesis = ifIdNullGetNewHypothesis_orEditExisting(hypothesis);
 		hypothesisRepository.save(hypothesis);
-		return "redirect:/displaypatientscard/"+hypothesis.getMedicalHistory().getPatient().getId();
+		Long patientId = medicalHistoryRepository.findOne(hypothesis.getMedicalHistory().getId()).getPatient().getId();
+		return "redirect:/displaypatientscard/"+patientId;
 	}
 
 	@Override
@@ -43,7 +46,8 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 		return "addhypothesis";
 	}
 	private Hypothesis ifIdNullGetNewHypothesis_orEditExisting(Hypothesis hypothesis) {
-		if (hypothesis.getId() != null) {
+		Optional<Long> hypothesisId = Optional.ofNullable(hypothesis.getId());
+		if (hypothesisId.isPresent()) {
 			Hypothesis existingHypothesis= hypothesisRepository.findOne(hypothesis.getId());
 			existingHypothesis.setDescription(hypothesis.getDescription());
 			return existingHypothesis;

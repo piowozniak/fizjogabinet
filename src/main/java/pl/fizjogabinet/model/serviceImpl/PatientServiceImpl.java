@@ -21,7 +21,7 @@ import pl.fizjogabinet.model.service.CrudService;
 public class PatientServiceImpl implements CrudService<Object> {
 	
 	@Autowired
-	PatientRepository patientRepository;
+	private PatientRepository patientRepository;
 	@Autowired
 	private VisitRepository visitRepository;
 //	@Autowired 
@@ -38,12 +38,14 @@ public class PatientServiceImpl implements CrudService<Object> {
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
 		Patient patient = (Patient) o;
+		patient.setFullName(patient.getFirstName() + " " + patient.getLastName());
 		patient = ifIdNullGetNewPatient_orEditExisting(patient);
 		patientRepository.save(patient);
 		return "redirect:/patientspage";
 	}
+	
 	private Patient ifIdNullGetNewPatient_orEditExisting(Patient patient) {
-		if (patient.getId() != null) {
+		if (Optional.ofNullable(patient.getId()).isPresent()) {
 			Patient existingPatient = patientRepository.findOne(patient.getId());
 			existingPatient.setFirstName(patient.getFirstName());
 			existingPatient.setLastName(patient.getLastName());

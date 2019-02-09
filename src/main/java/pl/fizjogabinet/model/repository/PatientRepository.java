@@ -12,7 +12,7 @@ import pl.fizjogabinet.model.entity.Patient;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 	
-	@Query(value="select * from patient where lastName like %:search% or firstName like %:search%", nativeQuery = true)
-	public List<Patient> findByLastNameOrFirstName(@Param("search") String search);
+	@Query(value="select * from patient where fullName like %:search%", nativeQuery = true)
+	public List<Patient> findByName(@Param("search") String search);
 
 }

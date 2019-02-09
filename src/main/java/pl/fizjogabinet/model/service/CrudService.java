@@ -17,6 +17,5 @@ public interface CrudService<T> {
 	String editForm(Model model, Long id);
 	String deleteForm(Model model, Long id);
 	String deleteFormConfirmation(Model model, Long id);
-
 	
 }
