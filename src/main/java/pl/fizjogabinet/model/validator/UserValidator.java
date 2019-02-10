@@ -13,8 +13,8 @@ import pl.fizjogabinet.model.service.UserService;
 public class UserValidator implements Validator {
 
 	@Autowired
-    private UserService userService;
-	
+	private UserService userService;
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return User.class.equals(clazz);
@@ -22,24 +22,40 @@ public class UserValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-        User user = (User) target;
+		User user = (User) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.userName");
-        }
-        if (userService.findByUserName(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.userName");
-        }
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+		if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
+			errors.rejectValue("username", "Size.userForm.userName");
+		}
+		if (userService.findByUserName(user.getUsername()) != null) {
+			errors.rejectValue("username", "Duplicate.userForm.userName");
+		}
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
-        }
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+		if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+			errors.rejectValue("password", "Size.userForm.password");
+		}
 
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
-        }
-    }
+		if (!user.getPasswordConfirm().equals(user.getPassword())) {
+			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+		}
+	}
+
+	public void validatePasswordChange(Object target, Errors errors) {
+		User user = (User) target;
+		//TODO 
+		if (!user.getCurrentPassword().equals(user.getPasswordConfirm())) {
+			errors.rejectValue("currentPassword", "");
+		}
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+		if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+			errors.rejectValue("password", "Size.userForm.password");
+		}
+
+		if (!user.getPasswordConfirm().equals(user.getPassword())) {
+			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+		}
+	}
 
 }

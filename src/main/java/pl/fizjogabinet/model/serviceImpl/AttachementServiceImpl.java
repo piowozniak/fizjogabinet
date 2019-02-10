@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.fizjogabinet.model.dto.AttachementDTO;
 import pl.fizjogabinet.model.entity.Attachement;
 import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.AttachementRepository;
 import pl.fizjogabinet.model.repository.PatientRepository;
 import pl.fizjogabinet.model.service.AttachementService;
@@ -32,11 +33,12 @@ public class AttachementServiceImpl implements AttachementService{
 	private PatientRepository patientRepository; 
 	@Autowired
 	private AttachementRepository attachementRepository;
+	private static final String ATTACHMENT = "attachment";
 
 	@Override
 	public String upload(Model model, Long id, MultipartFile file) throws SerialException, SQLException {
 		Patient patient = patientRepository.findOne(id);
-		Attachement attachement = new Attachement();
+		Attachement attachement = (Attachement) FizjoGabinetFactoryE.objectFactory(ATTACHMENT);
 		attachement.setPatient(patient);
 		attachement.setContentType(file.getContentType());
 		attachement.setFileName(file.getOriginalFilename());

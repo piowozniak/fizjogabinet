@@ -11,6 +11,7 @@ import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.entity.Therapist;
 import pl.fizjogabinet.model.entity.Visit;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.repository.VisitRepository;
@@ -23,11 +24,13 @@ public class VisitServiceImpl implements CrudService<Object> {
 	@Autowired 
 	private TherapistRepository therapistRepository;
 	private final static String[] TYPE_OF_VISIT = new String[] { "Domowa", "Gabinet" };
+	private final static String VISIT = "visit";
+	private final static String PATIENT = "patient";
 	
 	@Override
 	public String addForm(Model model, Long id) {
-		Visit visit = new Visit();
-		Patient patient = new Patient();
+		Visit visit = (Visit) FizjoGabinetFactoryE.objectFactory(VISIT);
+		Patient patient = (Patient) FizjoGabinetFactoryE.objectFactory(PATIENT);
 		patient.setId(id);
 		visit.setPatient(patient);
 		List<Therapist> therapists = therapistRepository.findAll();
@@ -41,7 +44,7 @@ public class VisitServiceImpl implements CrudService<Object> {
 	public String addFormConfirmation(Model model, Object o) {
 		Visit visit = (Visit) o;
 		visit = ifIdNullGetNewMedicalHistory_orEditExisting(visit);
-		visitRepository.save((Visit) o);
+		visitRepository.save(visit);
 		return "redirect:/displaypatientscard/" + visit.getPatient().getId();
 	}
 

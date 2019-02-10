@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import pl.fizjogabinet.model.entity.Role;
 import pl.fizjogabinet.model.entity.User;
 import pl.fizjogabinet.model.repository.RoleRepository;
@@ -32,6 +31,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUserName(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public void changePassword(User user) {
+		User newPasswordUser = userRepository.findOne((long) 1);
+		newPasswordUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		userRepository.save(newPasswordUser);
 	}
 
 }

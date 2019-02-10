@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import pl.fizjogabinet.model.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.model.repository.PatientRepository;
@@ -23,15 +24,16 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	private MedicalHistoryRepository medicalHistoryRepository;
 	@Autowired
 	private HypothesisRepository hypothesisRepository;
-	private static final String[] flags = new String[] {"G", "Y", "R"};
+	private static final String[] FLAGS = new String[] {"G", "Y", "R"};
+	private static final String MEDICAL_HISTORY = "medicalhistory";
 
 	@Override
 	public String addForm(Model model, Long id) {
 		Patient patient = patientRepository.findOne(id);
-		MedicalHistory medicalHistory = new MedicalHistory();
+		MedicalHistory medicalHistory = (MedicalHistory) FizjoGabinetFactoryE.objectFactory(MEDICAL_HISTORY);
 		medicalHistory.setPatient(patient);
 		model.addAttribute("medicalHistory", medicalHistory);
-		model.addAttribute("flags", flags);
+		model.addAttribute("flags", FLAGS);
 		return "addmedicalhistory";
 	}
 
@@ -44,14 +46,14 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	}
 
 	public static String[] getFlags() {
-		return flags;
+		return FLAGS;
 	}
 
 	@Override
 	public String editForm(Model model, Long id) {
 		MedicalHistory medicalHistory = medicalHistoryRepository.findOne(id);
 		model.addAttribute("medicalHistory", medicalHistory);
-		model.addAttribute("flags", flags);
+		model.addAttribute("flags", FLAGS);
 		return "addmedicalhistory";
 	}
 	private MedicalHistory ifIdNullGetNewMedicalHistory_orEditExisting(MedicalHistory medicalHistory) {

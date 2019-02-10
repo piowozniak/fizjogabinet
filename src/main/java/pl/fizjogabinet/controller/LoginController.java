@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import pl.fizjogabinet.model.entity.User;
 import pl.fizjogabinet.model.service.SecurityService;
 import pl.fizjogabinet.model.service.UserService;
@@ -70,6 +69,16 @@ public class LoginController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String changePassword(@ModelAttribute("passwordForm") User passwordForm, BindingResult bindingResult, Model model) {
+        userValidator.validatePasswordChange(passwordForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "controlpanel";
+        }
+        userService.changePassword(passwordForm);
+        return "redirect:/controlpanel";
+	}
+	
 	@RequestMapping("/homepage")
 	public String homepage(Model model) {
 		String test = securityService.findLoggedInUserName();
@@ -82,20 +91,6 @@ public class LoginController {
 //		System.out.println(authentication.getPrincipal());	
 		return "homepage";
 	}
-//  @RequestMapping(value = "/login", method = RequestMethod.GET)
-//  public String login(Model model, String error, String logout) {
-//  	if (error != null)
-//          model.addAttribute("error", "Your username and password is invalid.");
-//
-//      if (logout != null)
-//          model.addAttribute("message", "You have been logged out successfully.");
-//
-//      return "login";
-//  }
-//
-//  @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-//  public String welcome(Model model) {
-//      return "welcome";
-//  }
+
 
 }

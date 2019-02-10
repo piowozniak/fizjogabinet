@@ -1,19 +1,13 @@
 package pl.fizjogabinet.model.serviceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import pl.fizjogabinet.model.dto.PatientDTO;
 import pl.fizjogabinet.model.entity.Patient;
-import pl.fizjogabinet.model.entity.Therapist;
-import pl.fizjogabinet.model.entity.Visit;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.PatientRepository;
-import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.repository.VisitRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
@@ -24,13 +18,11 @@ public class PatientServiceImpl implements CrudService<Object> {
 	private PatientRepository patientRepository;
 	@Autowired
 	private VisitRepository visitRepository;
-//	@Autowired 
-//	private TherapistRepository therapistRepository;
-//	private final static String[] TYPE_OF_VISIT = new String[] { "Domowa", "Gabinet" };
+	private static final String PATIENT = "Patient";
 
 	@Override
 	public String addForm(Model model, Long id) {
-		Patient patient = new Patient();
+		Patient patient = (Patient) FizjoGabinetFactoryE.objectFactory(PATIENT);
 		model.addAttribute("patient", patient);
 		return "registerpatientform";
 	}

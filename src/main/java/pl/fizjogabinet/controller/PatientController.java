@@ -23,7 +23,7 @@ import pl.fizjogabinet.model.service.CrudService;
 @ComponentScan(basePackages="pl.fizjogabinet")
 public class PatientController {
 	
-	private final CrudService patientService;
+	private CrudService patientService;
 	 
 	@Autowired
 	public PatientController(@Qualifier("patient") CrudService patientService) {

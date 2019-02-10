@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import pl.fizjogabinet.model.entity.Hypothesis;
 import pl.fizjogabinet.model.entity.MedicalHistory;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.model.service.CrudService;
@@ -20,10 +21,11 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 	@Autowired
 	private HypothesisRepository hypothesisRepository;
 	private MedicalHistory medicalHistory;
+	private static final String HYPOTHESIS = "hypothesis";
 
 	@Override
 	public String addForm(Model model, Long id) {
-		Hypothesis hypothesis = new Hypothesis();	
+		Hypothesis hypothesis = (Hypothesis) FizjoGabinetFactoryE.objectFactory(HYPOTHESIS);	
 		this.medicalHistory = medicalHistoryRepository.findOne(id);
 		hypothesis.setMedicalHistory(medicalHistory);
 		model.addAttribute("hypothesis", hypothesis);
