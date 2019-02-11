@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.entity.Therapist;
 import pl.fizjogabinet.model.entity.Visit;
+import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
@@ -16,16 +18,19 @@ public class TherapistServiceImpl implements CrudService<Object> {
 	
 	@Autowired
 	private TherapistRepository therapistRepository;
+	private final static String THERAPIST = "therapist";
 
 	@Override
 	public String addForm(Model model, Long id) {
-		model.addAttribute("therapist", new Therapist());
+		FizjoGabinetObject<Therapist> therapistObject = new FizjoGabinetObject<Therapist>(FizjoGabinetFactoryE.objectFactory(THERAPIST));
+		model.addAttribute("therapist", therapistObject.getFizjoObject());
 		return "addtherapist";
 	}
 
 	@Override
 	public String addFormConfirmation(Model model, Object t) {
-		Therapist therapist = (Therapist) t;
+		FizjoGabinetObject<Therapist> therapistObject = new FizjoGabinetObject<Therapist>(t);
+		Therapist therapist = therapistObject.getFizjoObject();
 		therapist = ifIdNullGetNewMedicalHistory_orEditExisting(therapist);
 		therapistRepository.save(therapist);
 		return "redirect:/controlpanel";

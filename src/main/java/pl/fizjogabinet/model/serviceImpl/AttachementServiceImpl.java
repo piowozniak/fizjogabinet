@@ -18,8 +18,10 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import pl.fizjogabinet.model.dto.AttachementDTO;
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.entity.Attachement;
 import pl.fizjogabinet.model.entity.Patient;
+import pl.fizjogabinet.model.entity.Visit;
 import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.AttachementRepository;
 import pl.fizjogabinet.model.repository.PatientRepository;
@@ -38,7 +40,8 @@ public class AttachementServiceImpl implements AttachementService{
 	@Override
 	public String upload(Model model, Long id, MultipartFile file) throws SerialException, SQLException {
 		Patient patient = patientRepository.findOne(id);
-		Attachement attachement = (Attachement) FizjoGabinetFactoryE.objectFactory(ATTACHMENT);
+		FizjoGabinetObject<Attachement> fileObject = new FizjoGabinetObject<Attachement>(FizjoGabinetFactoryE.objectFactory(ATTACHMENT));
+		Attachement attachement = fileObject.getFizjoObject();
 		attachement.setPatient(patient);
 		attachement.setContentType(file.getContentType());
 		attachement.setFileName(file.getOriginalFilename());

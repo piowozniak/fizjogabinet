@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.dto.MedicalHistoryDTO;
 import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
@@ -30,7 +31,8 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	@Override
 	public String addForm(Model model, Long id) {
 		Patient patient = patientRepository.findOne(id);
-		MedicalHistory medicalHistory = (MedicalHistory) FizjoGabinetFactoryE.objectFactory(MEDICAL_HISTORY);
+		FizjoGabinetObject<MedicalHistory> medicalHistoryObject = new FizjoGabinetObject<MedicalHistory>(FizjoGabinetFactoryE.objectFactory(MEDICAL_HISTORY));
+		MedicalHistory medicalHistory = medicalHistoryObject.getFizjoObject();
 		medicalHistory.setPatient(patient);
 		model.addAttribute("medicalHistory", medicalHistory);
 		model.addAttribute("flags", FLAGS);
@@ -39,7 +41,8 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
-		MedicalHistory medicalHistory = (MedicalHistory) o;
+		FizjoGabinetObject<MedicalHistory> medicalHistoryObject = new FizjoGabinetObject<MedicalHistory>(o);
+		MedicalHistory medicalHistory = medicalHistoryObject.getFizjoObject();
 		medicalHistory = ifIdNullGetNewMedicalHistory_orEditExisting(medicalHistory);
 		medicalHistoryRepository.save(medicalHistory);
 		return "redirect:/displaypatientscard/"+medicalHistory.getPatient().getId();

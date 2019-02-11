@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.PatientRepository;
@@ -22,14 +24,16 @@ public class PatientServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addForm(Model model, Long id) {
-		Patient patient = (Patient) FizjoGabinetFactoryE.objectFactory(PATIENT);
+		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(FizjoGabinetFactoryE.objectFactory(PATIENT));
+		Patient patient = patientObject.getFizjoObject();
 		model.addAttribute("patient", patient);
 		return "registerpatientform";
 	}
 
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
-		Patient patient = (Patient) o;
+		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(o);
+		Patient patient = patientObject.getFizjoObject();
 		patient.setFullName(patient.getFirstName() + " " + patient.getLastName());
 		patient = ifIdNullGetNewPatient_orEditExisting(patient);
 		patientRepository.save(patient);

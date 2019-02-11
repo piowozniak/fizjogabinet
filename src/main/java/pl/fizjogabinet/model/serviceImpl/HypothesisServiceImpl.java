@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.entity.Hypothesis;
 import pl.fizjogabinet.model.entity.MedicalHistory;
+import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.enums.FizjoGabinetFactoryE;
 import pl.fizjogabinet.model.repository.HypothesisRepository;
 import pl.fizjogabinet.model.repository.MedicalHistoryRepository;
@@ -25,7 +27,8 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addForm(Model model, Long id) {
-		Hypothesis hypothesis = (Hypothesis) FizjoGabinetFactoryE.objectFactory(HYPOTHESIS);	
+		FizjoGabinetObject<Hypothesis> hypothesisObject = new FizjoGabinetObject<Hypothesis>(FizjoGabinetFactoryE.objectFactory(HYPOTHESIS));
+		Hypothesis hypothesis = hypothesisObject.getFizjoObject();	
 		this.medicalHistory = medicalHistoryRepository.findOne(id);
 		hypothesis.setMedicalHistory(medicalHistory);
 		model.addAttribute("hypothesis", hypothesis);
@@ -34,7 +37,8 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
-		Hypothesis hypothesis = (Hypothesis) o;
+		FizjoGabinetObject<Hypothesis> hypothesisObject = new FizjoGabinetObject<Hypothesis>(o);
+		Hypothesis hypothesis = hypothesisObject.getFizjoObject();
 		hypothesis = ifIdNullGetNewHypothesis_orEditExisting(hypothesis);
 		hypothesisRepository.save(hypothesis);
 		Long patientId = medicalHistoryRepository.findOne(hypothesis.getMedicalHistory().getId()).getPatient().getId();

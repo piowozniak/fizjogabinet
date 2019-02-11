@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.fizjogabinet.model.dto.FizjoGabinetObject;
 import pl.fizjogabinet.model.entity.MedicalHistory;
 import pl.fizjogabinet.model.entity.Patient;
 import pl.fizjogabinet.model.entity.Therapist;
@@ -29,8 +30,10 @@ public class VisitServiceImpl implements CrudService<Object> {
 	
 	@Override
 	public String addForm(Model model, Long id) {
-		Visit visit = (Visit) FizjoGabinetFactoryE.objectFactory(VISIT);
-		Patient patient = (Patient) FizjoGabinetFactoryE.objectFactory(PATIENT);
+		FizjoGabinetObject<Visit> visitObject = new FizjoGabinetObject<Visit>(FizjoGabinetFactoryE.objectFactory(VISIT));
+		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(FizjoGabinetFactoryE.objectFactory(PATIENT));
+		Visit visit = visitObject.getFizjoObject();
+		Patient patient = patientObject.getFizjoObject();
 		patient.setId(id);
 		visit.setPatient(patient);
 		List<Therapist> therapists = therapistRepository.findAll();
@@ -42,7 +45,8 @@ public class VisitServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addFormConfirmation(Model model, Object o) {
-		Visit visit = (Visit) o;
+		FizjoGabinetObject<Visit> visitObject = new FizjoGabinetObject<Visit>(o);
+		Visit visit = visitObject.getFizjoObject();
 		visit = ifIdNullGetNewMedicalHistory_orEditExisting(visit);
 		visitRepository.save(visit);
 		return "redirect:/displaypatientscard/" + visit.getPatient().getId();
