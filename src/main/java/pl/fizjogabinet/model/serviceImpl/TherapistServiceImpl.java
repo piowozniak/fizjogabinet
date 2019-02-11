@@ -14,7 +14,7 @@ import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
 @Service("therapist")
-public class TherapistServiceImpl implements CrudService<Object> {
+public class TherapistServiceImpl implements CrudService<Therapist> {
 	
 	@Autowired
 	private TherapistRepository therapistRepository;
@@ -22,15 +22,13 @@ public class TherapistServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addForm(Model model, Long id) {
-		FizjoGabinetObject<Therapist> therapistObject = new FizjoGabinetObject<Therapist>(FizjoGabinetFactoryE.objectFactory(THERAPIST));
+		FizjoGabinetObject<Therapist> therapistObject = new FizjoGabinetObject<Therapist>(new Therapist());
 		model.addAttribute("therapist", therapistObject.getFizjoObject());
 		return "addtherapist";
 	}
 
 	@Override
-	public String addFormConfirmation(Model model, Object t) {
-		FizjoGabinetObject<Therapist> therapistObject = new FizjoGabinetObject<Therapist>(t);
-		Therapist therapist = therapistObject.getFizjoObject();
+	public String addFormConfirmation(Model model, Therapist therapist) {
 		therapist = ifIdNullGetNewMedicalHistory_orEditExisting(therapist);
 		therapistRepository.save(therapist);
 		return "redirect:/controlpanel";

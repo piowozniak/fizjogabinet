@@ -4,9 +4,9 @@ public class FizjoGabinetObject<T> {
 	
 	private T fizjoObject;
 
-	public FizjoGabinetObject(Object objectFactory) {
+	public FizjoGabinetObject(T o) {
 		super();
-		this.fizjoObject = (T) objectFactory;
+		this.fizjoObject = o;
 	}
 
 	public T getFizjoObject() {

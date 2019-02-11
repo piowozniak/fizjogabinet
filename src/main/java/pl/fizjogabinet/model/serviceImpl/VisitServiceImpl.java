@@ -18,7 +18,7 @@ import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.repository.VisitRepository;
 import pl.fizjogabinet.model.service.CrudService;
 @Service("visit")
-public class VisitServiceImpl implements CrudService<Object> {
+public class VisitServiceImpl implements CrudService<Visit> {
 	
 	@Autowired
 	private VisitRepository visitRepository;
@@ -30,8 +30,8 @@ public class VisitServiceImpl implements CrudService<Object> {
 	
 	@Override
 	public String addForm(Model model, Long id) {
-		FizjoGabinetObject<Visit> visitObject = new FizjoGabinetObject<Visit>(FizjoGabinetFactoryE.objectFactory(VISIT));
-		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(FizjoGabinetFactoryE.objectFactory(PATIENT));
+		FizjoGabinetObject<Visit> visitObject = new FizjoGabinetObject<Visit>(new Visit());
+		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(new Patient());
 		Visit visit = visitObject.getFizjoObject();
 		Patient patient = patientObject.getFizjoObject();
 		patient.setId(id);
@@ -44,9 +44,7 @@ public class VisitServiceImpl implements CrudService<Object> {
 	}
 
 	@Override
-	public String addFormConfirmation(Model model, Object o) {
-		FizjoGabinetObject<Visit> visitObject = new FizjoGabinetObject<Visit>(o);
-		Visit visit = visitObject.getFizjoObject();
+	public String addFormConfirmation(Model model, Visit visit) {
 		visit = ifIdNullGetNewMedicalHistory_orEditExisting(visit);
 		visitRepository.save(visit);
 		return "redirect:/displaypatientscard/" + visit.getPatient().getId();

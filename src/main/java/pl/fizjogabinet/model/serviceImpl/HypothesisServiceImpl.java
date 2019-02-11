@@ -16,7 +16,7 @@ import pl.fizjogabinet.model.repository.MedicalHistoryRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
 @Service("hypothesis")
-public class HypothesisServiceImpl implements CrudService<Object> {
+public class HypothesisServiceImpl implements CrudService<Hypothesis> {
 	
 	@Autowired
 	private MedicalHistoryRepository medicalHistoryRepository;
@@ -27,7 +27,7 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addForm(Model model, Long id) {
-		FizjoGabinetObject<Hypothesis> hypothesisObject = new FizjoGabinetObject<Hypothesis>(FizjoGabinetFactoryE.objectFactory(HYPOTHESIS));
+		FizjoGabinetObject<Hypothesis> hypothesisObject = new FizjoGabinetObject<Hypothesis>(new Hypothesis());
 		Hypothesis hypothesis = hypothesisObject.getFizjoObject();	
 		this.medicalHistory = medicalHistoryRepository.findOne(id);
 		hypothesis.setMedicalHistory(medicalHistory);
@@ -36,9 +36,7 @@ public class HypothesisServiceImpl implements CrudService<Object> {
 	}
 
 	@Override
-	public String addFormConfirmation(Model model, Object o) {
-		FizjoGabinetObject<Hypothesis> hypothesisObject = new FizjoGabinetObject<Hypothesis>(o);
-		Hypothesis hypothesis = hypothesisObject.getFizjoObject();
+	public String addFormConfirmation(Model model, Hypothesis hypothesis) {
 		hypothesis = ifIdNullGetNewHypothesis_orEditExisting(hypothesis);
 		hypothesisRepository.save(hypothesis);
 		Long patientId = medicalHistoryRepository.findOne(hypothesis.getMedicalHistory().getId()).getPatient().getId();

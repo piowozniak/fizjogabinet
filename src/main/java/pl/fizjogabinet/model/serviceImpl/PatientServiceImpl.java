@@ -14,7 +14,7 @@ import pl.fizjogabinet.model.repository.VisitRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
 @Service("patient")
-public class PatientServiceImpl implements CrudService<Object> {
+public class PatientServiceImpl implements CrudService<Patient> {
 	
 	@Autowired
 	private PatientRepository patientRepository;
@@ -24,16 +24,14 @@ public class PatientServiceImpl implements CrudService<Object> {
 
 	@Override
 	public String addForm(Model model, Long id) {
-		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(FizjoGabinetFactoryE.objectFactory(PATIENT));
+		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(new Patient());
 		Patient patient = patientObject.getFizjoObject();
 		model.addAttribute("patient", patient);
 		return "registerpatientform";
 	}
 
 	@Override
-	public String addFormConfirmation(Model model, Object o) {
-		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(o);
-		Patient patient = patientObject.getFizjoObject();
+	public String addFormConfirmation(Model model, Patient patient) {
 		patient.setFullName(patient.getFirstName() + " " + patient.getLastName());
 		patient = ifIdNullGetNewPatient_orEditExisting(patient);
 		patientRepository.save(patient);

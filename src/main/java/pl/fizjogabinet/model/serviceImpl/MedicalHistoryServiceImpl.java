@@ -17,7 +17,7 @@ import pl.fizjogabinet.model.repository.PatientRepository;
 import pl.fizjogabinet.model.service.CrudService;
 
 @Service("medicalhistory")
-public class MedicalHistoryServiceImpl implements CrudService<Object> {
+public class MedicalHistoryServiceImpl implements CrudService<MedicalHistory>{
 	
 	@Autowired
 	private PatientRepository patientRepository;
@@ -31,7 +31,7 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	@Override
 	public String addForm(Model model, Long id) {
 		Patient patient = patientRepository.findOne(id);
-		FizjoGabinetObject<MedicalHistory> medicalHistoryObject = new FizjoGabinetObject<MedicalHistory>(FizjoGabinetFactoryE.objectFactory(MEDICAL_HISTORY));
+		FizjoGabinetObject<MedicalHistory> medicalHistoryObject = new FizjoGabinetObject<MedicalHistory>(new MedicalHistory());
 		MedicalHistory medicalHistory = medicalHistoryObject.getFizjoObject();
 		medicalHistory.setPatient(patient);
 		model.addAttribute("medicalHistory", medicalHistory);
@@ -40,9 +40,7 @@ public class MedicalHistoryServiceImpl implements CrudService<Object> {
 	}
 
 	@Override
-	public String addFormConfirmation(Model model, Object o) {
-		FizjoGabinetObject<MedicalHistory> medicalHistoryObject = new FizjoGabinetObject<MedicalHistory>(o);
-		MedicalHistory medicalHistory = medicalHistoryObject.getFizjoObject();
+	public String addFormConfirmation(Model model, MedicalHistory medicalHistory) {
 		medicalHistory = ifIdNullGetNewMedicalHistory_orEditExisting(medicalHistory);
 		medicalHistoryRepository.save(medicalHistory);
 		return "redirect:/displaypatientscard/"+medicalHistory.getPatient().getId();
