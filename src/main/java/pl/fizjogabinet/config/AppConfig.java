@@ -5,10 +5,12 @@ import java.util.Locale;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -28,17 +30,17 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "pl.fizjogabinet")
 @EnableTransactionManagement // umozliwia transakcje transactional
 @EnableWebMvc
-@EnableJpaRepositories(basePackages="pl.fizjogabinet.model.repository")
-@Import(value = {SecurityConfig.class})
+@EnableJpaRepositories(basePackages = "pl.fizjogabinet.model.repository")
+@Import(value = { SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
-	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-	    multipartResolver.setMaxUploadSize(10000000);
-	    return multipartResolver;
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10000000);
+		return multipartResolver;
 	}
-	
+
 	@Bean("entityManagerFactory")
 	public LocalEntityManagerFactoryBean entityManagerFactoryBean() {
 		LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
@@ -74,4 +76,21 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public Validator validator() {
 		return new LocalValidatorFactoryBean();
 	}
+
+	@Bean("messageSource")
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:locale/messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setUseCodeAsDefaultMessage(true);
+		return messageSource;
+	}
+
+	// @Bean
+	// public MessageSource messageSource() {
+	// ReloadableResourceBundleMessageSource messageSource = new
+	// ReloadableResourceBundleMessageSource();
+	// messageSource.setBasename("/WEB-INF/classes/messages");
+	// return messageSource;
+	// }
 }

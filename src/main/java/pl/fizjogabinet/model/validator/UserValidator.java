@@ -46,7 +46,7 @@ public class UserValidator implements Validator {
 		User user = (User) target;
 		//TODO 
 		if (!user.getCurrentPassword().equals(user.getPasswordConfirm())) {
-			errors.rejectValue("currentPassword", "");
+			errors.rejectValue("currentPassword", "Curr.userForm.currentPassword");
 		}
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {

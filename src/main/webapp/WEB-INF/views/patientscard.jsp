@@ -13,15 +13,19 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<h3>patients page</h3>
-	<form style="display: inline;" method="get"
-		action="javascript:document.getElementById('logout').submit()">
-		<button type="submit">Log out</button>
+	<c:url value="/logout" var="logoutUrl" />
+	<form id="logout" action="${logoutUrl}" method="post">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
 	</form>
 	<f:form style="display: inline;" action="${contextPath }/homepage"
 		method="get">
 		<button type="submit">homepage</button>
 	</f:form>
-
+	<f:form style="display: inline;" action="${contextPath }/patientspage"
+		method="get">
+		<button type="submit">patients page</button>
+	</f:form>
 	</br>
 	<h2>patients card</h2>
 	<f:form style="display: inline;"
@@ -63,18 +67,17 @@
 		</c:forEach>
 	</c:if>
 	<h2>attachments</h2>
-	<c:if test="${!patient.attachements.isEmpty() }">		
+	<c:if test="${!patient.attachements.isEmpty() }">
 		<c:forEach items="${patient.attachements }" var="attachement">
 			<td>${attachement.fileName }</td>
 			<f:form style="display: inline;"
 				action="${contextPath }/downloadFile/${attachement.id }"
 				method="get">
 				<button type="submit">download</button>
-				
+
 			</f:form>
 			<f:form style="display: inline;"
-				action="${contextPath }/removeFile/${attachement.id }"
-				method="get">
+				action="${contextPath }/removeFile/${attachement.id }" method="get">
 				<button type="submit">remove</button>
 				</br>
 			</f:form>
@@ -101,14 +104,13 @@
 	<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
 		varStatus="thecount">
 
-		<f:form style="display: inline;"
+	<!--  	<f:form style="display: inline;"
 			action="${contextPath }/displaymedicalhistory/${medicalHistory.medicalHistory.id }"
 			method="get">
 			<button type="submit">display medical history
 				${thecount.count }</button>
-		</f:form>
+		</f:form>-->
 		</br>
-		<c:if test="${medicalHistory.displayMedicalHistory }">
 			<f:form style="display: inline;"
 				action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
 				method="get">
@@ -147,7 +149,6 @@
 				method="get">
 				<button type="submit">add hypothesis</button>
 			</f:form>
-		</c:if>
 		</br>
 	</c:forEach>
 </body>
