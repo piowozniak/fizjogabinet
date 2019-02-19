@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public interface AttachementService {
-	String upload(Model model, Long id, MultipartFile file) throws SerialException, SQLException;
+	String upload(Model model, Long id, MultipartFile file, String description) throws SerialException, SQLException;
 	void download(Model model, Long id,HttpServletResponse response) throws IOException, SQLException;
 	String remove(Model model, Long id);
 	String removeConfirm(Model model, Long id);

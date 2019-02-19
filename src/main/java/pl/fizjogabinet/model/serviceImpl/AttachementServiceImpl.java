@@ -38,11 +38,12 @@ public class AttachementServiceImpl implements AttachementService{
 	private static final String ATTACHMENT = "attachment";
 
 	@Override
-	public String upload(Model model, Long id, MultipartFile file) throws SerialException, SQLException {
+	public String upload(Model model, Long id, MultipartFile file, String description) throws SerialException, SQLException {
 		Patient patient = patientRepository.findOne(id);
 		FizjoGabinetObject<Attachement> fileObject = new FizjoGabinetObject<Attachement>(new Attachement());
 		Attachement attachement = fileObject.getFizjoObject();
 		attachement.setPatient(patient);
+		attachement.setDescription(description);
 		attachement.setContentType(file.getContentType());
 		attachement.setFileName(file.getOriginalFilename());
 		byte[] bytes;

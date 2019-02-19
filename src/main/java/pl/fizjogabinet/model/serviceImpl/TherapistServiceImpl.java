@@ -51,7 +51,8 @@ public class TherapistServiceImpl implements CrudService<Therapist> {
 	@Override
 	public String deleteFormConfirmation(Model model, Long id) {
 		Therapist therapist = therapistRepository.findOne(id);
-		therapistRepository.delete(therapist);
+		therapist.setStatus("N");
+		therapistRepository.save(therapist);
 		return "redirect:/controlpanel";
 	}
 	

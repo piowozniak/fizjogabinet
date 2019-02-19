@@ -17,6 +17,7 @@ public class Therapist {
 	private String lastName;
 	private String phoneNumber;
 	private String email;
+	private String status;
 
 	public Long getId() {
 		return id;
@@ -57,5 +58,14 @@ public class Therapist {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 
 }

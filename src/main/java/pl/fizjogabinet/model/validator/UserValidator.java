@@ -1,12 +1,14 @@
 package pl.fizjogabinet.model.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import pl.fizjogabinet.model.entity.User;
+import pl.fizjogabinet.model.repository.UserRepository;
 import pl.fizjogabinet.model.service.UserService;
 
 @Component
@@ -14,6 +16,8 @@ public class UserValidator implements Validator {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -44,8 +48,9 @@ public class UserValidator implements Validator {
 
 	public void validatePasswordChange(Object target, Errors errors) {
 		User user = (User) target;
-		//TODO 
-		if (!user.getCurrentPassword().equals(user.getPasswordConfirm())) {
+		User userCurrentPassword = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		if (!user.getCurrentPassword().equals(userCurrentPassword.getPasswordConfirm())) {
 			errors.rejectValue("currentPassword", "Curr.userForm.currentPassword");
 		}
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");

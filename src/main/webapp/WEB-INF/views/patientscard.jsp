@@ -70,6 +70,7 @@
 	<c:if test="${!patient.attachements.isEmpty() }">
 		<c:forEach items="${patient.attachements }" var="attachement">
 			<td>${attachement.fileName }</td>
+			<td>${attachement.description }</td>
 			<f:form style="display: inline;"
 				action="${contextPath }/downloadFile/${attachement.id }"
 				method="get">
@@ -89,6 +90,9 @@
 		<table>
 			<tr>
 				<td><input type="file" name="file" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="description" /></td>
 			</tr>
 			<tr>
 				<td><button type="submit">submit</button></td>

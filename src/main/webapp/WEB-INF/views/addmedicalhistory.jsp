@@ -43,7 +43,7 @@
 		</div>
 		<div>
 			treatment:
-			<f:input path="treatment" />
+			<f:textarea rows="4" cols="50" path="treatment" />
 		</div>
 
 		<input type="hidden" name="${_csrf.parameterName}"

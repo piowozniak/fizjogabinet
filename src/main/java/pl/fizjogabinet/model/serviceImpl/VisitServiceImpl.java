@@ -36,7 +36,7 @@ public class VisitServiceImpl implements CrudService<Visit> {
 		Patient patient = patientObject.getFizjoObject();
 		patient.setId(id);
 		visit.setPatient(patient);
-		List<Therapist> therapists = therapistRepository.findAll();
+		List<Therapist> therapists = therapistRepository.findByActiveTherapists();
 		model.addAttribute("therapists", therapists);
 		model.addAttribute("visit", visit);
 		model.addAttribute("typeOfVisit", TYPE_OF_VISIT);

@@ -106,7 +106,7 @@ public class AdminServiceImpl implements AdminService, ModelService {
 	@Override
 	public String displayControlPanel(Model model) {
 		Comparator<Therapist> comparator = Comparator.comparing(t -> t.getLastName());
-		List<Therapist> therapists = therapistRepository.findAll();
+		List<Therapist> therapists = therapistRepository.findByActiveTherapists();
 		therapists.sort(comparator);
 		User passwordForm = (User) FizjoGabinetFactoryE.objectFactory(USER);
 		model.addAttribute("passwordForm", passwordForm);

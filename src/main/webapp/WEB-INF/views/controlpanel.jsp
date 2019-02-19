@@ -35,6 +35,7 @@
 	<c:forEach items="${therapists}" var="therapist">
 		<td>${therapist.firstName }</td>
 		<td>${therapist.lastName }</td>
+		<td>${therapist.status }</td>
 		<f:form style="display: inline;"
 			action="${contextPath }/edittherapist/${therapist.id }" method="get">
 			<button type="submit">edit</button>

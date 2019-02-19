@@ -26,12 +26,13 @@
 		<button type="submit">add patient</button>
 	</f:form>
 	</br>
-	<f:form style="display: inline;" action="${contextPath }/searchpatient" method="get">
+	<f:form style="display: inline;" action="${contextPath }/searchpatient"
+		method="get">
 		<input name="search" />
 		<button type="submit">Search</button>
 	</f:form>
 	</br>
-	
+
 	<c:forEach items="${allPatients}" var="patient">
 		<td>${patient.firstName }</td>
 		<td>${patient.lastName }</td>
@@ -39,6 +40,10 @@
 			action="${contextPath }/displaypatientscard/${patient.id }"
 			method="get">
 			<button type="submit">details</button>
+		</f:form>
+		<f:form style="display: inline;"
+			action="${contextPath }/editpatient/${patient.id }" method="get">
+			<button type="submit">edit details</button>
 		</f:form>
 		</br>
 	</c:forEach>

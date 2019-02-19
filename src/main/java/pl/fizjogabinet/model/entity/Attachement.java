@@ -20,6 +20,7 @@ public class Attachement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String fileName;
+	private String description;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
@@ -65,6 +66,14 @@ public class Attachement {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

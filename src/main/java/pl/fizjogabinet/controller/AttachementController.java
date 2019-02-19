@@ -30,8 +30,8 @@ public class AttachementController {
 	}
 	
 	@PostMapping(path="/uploadFile/{id}")
-	public String uploadFile(Model model, @PathVariable("id") Long id, @RequestParam("file") MultipartFile file) throws SerialException, SQLException {
-	    return attachementService.upload(model, id, file);
+	public String uploadFile(Model model, @PathVariable("id") Long id, @RequestParam("file") MultipartFile file, @RequestParam("description") String description) throws SerialException, SQLException {
+	    return attachementService.upload(model, id, file, description);
 	}
 	
 	@RequestMapping(path="/downloadFile/{id}")

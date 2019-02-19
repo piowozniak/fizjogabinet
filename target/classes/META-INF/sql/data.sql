@@ -7,10 +7,10 @@ INSERT INTO role (id, name) VALUES (1, 'ROLE_ADMIN');
 
 INSERT INTO user_role (user_id, role_id) VALUES (1, 1);
 
-INSERT INTO therapist (id, firstName, lastName) VALUES (1, "Piotr", "Durzynski");
-INSERT INTO therapist (id, firstName, lastName) VALUES (2, "John", "Kebab");
-INSERT INTO therapist (id, firstName, lastName) VALUES (3, "Stasiu", "Hue");
-INSERT INTO therapist (id, firstName, lastName) VALUES (4, "Kazimierz", "Wielki");
+INSERT INTO therapist (id, firstName, lastName, status) VALUES (1, "Piotr", "Durzynski", "T");
+INSERT INTO therapist (id, firstName, lastName, status) VALUES (2, "John", "Kebab", "T");
+INSERT INTO therapist (id, firstName, lastName, status) VALUES (3, "Stasiu", "Hue", "T");
+INSERT INTO therapist (id, firstName, lastName, status) VALUES (4, "Kazimierz", "Wielki", "T");
 
 INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (1, "John", "Kebab", "John Kebab","1923-12-01", "66666666");
 INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (2, "Pawel", "Cizemski", "Pawel Cizemski","1998-12-01", "77777777");
