@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +33,7 @@
 </style>
 </head>
 <body>
+<t:template>
 	<h2>add patient</h2>
 
 	<!--  dodawanie gym  -->
@@ -70,6 +71,6 @@
 
 		<button type="submit">back</button>
 	</f:form>
-
+</t:template>
 </body>
 </html>

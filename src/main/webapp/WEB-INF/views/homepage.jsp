@@ -4,6 +4,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -17,38 +18,11 @@
 </style>
 </head>
 <body>
-
+<t:template>
 	<h2>FizjoGabinet ${pageContext.request.remoteUser}</h2>
 
-	<c:url value="/logout" var="logoutUrl" />
-	<form id="logout" action="${logoutUrl}" method="post">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<form style="display: inline;" method="get"
-			action="javascript:document.getElementById('logout').submit()">
-			<button type="submit">Log out</button>
-		</form>
-		<f:form style="display: inline;" action="${contextPath }/patientspage"
-			method="get">
-			<button type="submit">patients page</button>
-		</f:form>
-		<f:form style="display: inline;" action="${contextPath }/addpatient"
-			method="get">
-			<button type="submit">add patient</button>
-		</f:form>
-		<f:form style="display: inline;" action="${contextPath }/controlpanel"
-			method="get">
-			<button type="submit">control panel</button>
-		</f:form>
 
-		<!--  <a class="button"
-			href="javascript:document.getElementById('logout').submit()">Logout</a>-->
-	</c:if>
-
-	</br>
-
+</t:template>
 
 </body>
 </html>

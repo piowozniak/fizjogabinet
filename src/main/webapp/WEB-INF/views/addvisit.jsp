@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +24,7 @@
 </style>
 </head>
 <body>
+<t:template>
 	<h2>add visit</h2>
 
 	<f:form action="${contextPath }/addvisit" method="post"
@@ -53,6 +55,6 @@
 	<f:form action="${contextPath }/displaypatientscard/${visit.patient.id }" method="get">
 		<button type="submit">cancel</button>
 	</f:form>
-
+</t:template>
 </body>
 </html>

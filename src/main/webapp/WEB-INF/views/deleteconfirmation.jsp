@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -21,106 +22,108 @@
 </style>
 </head>
 <body>
-	<h2>are you sure you want to delete</h2>
-	<c:if test="${visit != null }">
-		<f:form action="${contextPath }/deletevisit/${visit.id }"
-			method="post" modelAttribute="visit">
-			<div>
+	<t:template>
+		<h2>are you sure you want to delete</h2>
+		<c:if test="${visit != null }">
+			<f:form action="${contextPath }/deletevisit/${visit.id }"
+				method="post" modelAttribute="visit">
+				<div>
+					<f:hidden path="id" />
+				</div>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
+
+			<f:form
+				action="${contextPath }/displaypatientscard/${visit.patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+		<c:if test="${medicalHistory != null }">
+			<f:form
+				action="${contextPath }/deletemedicalhistory/${medicalHistory.id }"
+				method="post" modelAttribute="medicalHistory">
+
 				<f:hidden path="id" />
-			</div>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
 
-		<f:form
-			action="${contextPath }/displaypatientscard/${visit.patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
-	<c:if test="${medicalHistory != null }">
-		<f:form
-			action="${contextPath }/deletemedicalhistory/${medicalHistory.id }"
-			method="post" modelAttribute="medicalHistory">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
 
-			<f:hidden path="id" />
+			<f:form
+				action="${contextPath }/displaypatientscard/${visit.patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+		<c:if test="${patient != null }">
+			<f:form action="${contextPath }/deletepatient/${patient.id }"
+				method="post" modelAttribute="patient">
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
+				<f:hidden path="id" />
 
-		<f:form
-			action="${contextPath }/displaypatientscard/${visit.patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
-	<c:if test="${patient != null }">
-		<f:form action="${contextPath }/deletepatient/${patient.id }"
-			method="post" modelAttribute="patient">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
 
-			<f:hidden path="id" />
+			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+		<c:if test="${hypothesis != null }">
+			<f:form action="${contextPath }/deletehypothesis/${hypothesis.id }"
+				method="post" modelAttribute="hypothesis">
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
+				<f:hidden path="id" />
 
-		<f:form action="${contextPath }/displaypatientscard/${patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
-	<c:if test="${hypothesis != null }">
-		<f:form action="${contextPath }/deletehypothesis/${hypothesis.id }"
-			method="post" modelAttribute="hypothesis">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
 
-			<f:hidden path="id" />
+			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+		<c:if test="${therapist != null }">
+			<f:form action="${contextPath }/deletetherapist/${therapist.id }"
+				method="post" modelAttribute="therapist">
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
+				<f:hidden path="id" />
 
-		<f:form action="${contextPath }/displaypatientscard/${patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
-	<c:if test="${therapist != null }">
-		<f:form action="${contextPath }/deletetherapist/${therapist.id }"
-			method="post" modelAttribute="therapist">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
 
-			<f:hidden path="id" />
+			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+		<c:if test="${file != null }">
+			<f:form action="${contextPath }/removeFile/${file.id }" method="post"
+				modelAttribute="file">
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
+				<f:hidden path="id" />
 
-		<f:form action="${contextPath }/displaypatientscard/${patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
-	<c:if test="${file != null }">
-		<f:form action="${contextPath }/removeFile/${file.id }"
-			method="post" modelAttribute="file">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit">delete</button>
+			</f:form>
 
-			<f:hidden path="id" />
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">delete</button>
-		</f:form>
-
-		<f:form
-			action="${contextPath }/displaypatientscard/${file.patient.id }"
-			method="get">
-			<button type="submit">cancel</button>
-		</f:form>
-	</c:if>
+			<f:form
+				action="${contextPath }/displaypatientscard/${file.patient.id }"
+				method="get">
+				<button type="submit">cancel</button>
+			</f:form>
+		</c:if>
+	</t:template>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,109 +13,99 @@
 <title>login</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
-	<h3>patients page</h3>
-	<c:url value="/logout" var="logoutUrl" />
-	<form id="logout" action="${logoutUrl}" method="post">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<f:form style="display: inline;" action="${contextPath }/homepage"
-		method="get">
-		<button type="submit">homepage</button>
-	</f:form>
-	<f:form style="display: inline;" action="${contextPath }/patientspage"
-		method="get">
-		<button type="submit">patients page</button>
-	</f:form>
-	</br>
-	<h2>patients card</h2>
-	<f:form style="display: inline;"
-		action="${contextPath }/editpatient/${patient.id }" method="get">
-		<button type="submit">edit details</button>
-	</f:form>
-	<f:form style="display: inline;"
-		action="${contextPath }/deletepatient/${patient.id }" method="get">
-		<button type="submit">delete patient</button>
-	</f:form>
-	<td>${patient.firstName }</td>
-	<td>${patient.lastName}</td>
+	<t:template>
 
-	<h2>visits</h2>
-	<f:form style="display: inline;" action="${contextPath }/displayvisits"
-		method="get">
-		<button type="submit">display visits</button>
-	</f:form>
-	<f:form style="display: inline;"
-		action="${contextPath }/addvisit/${patient.id }" method="get">
-		<button type="submit">add visit</button>
-	</f:form>
-	</br>
-	<c:if test="${displayVisits }">
+		<h2>patients card</h2>
+		<f:form style="display: inline;"
+			action="${contextPath }/editpatient/${patient.id }" method="get">
+			<button type="submit">edit details</button>
+		</f:form>
+		<f:form style="display: inline;"
+			action="${contextPath }/deletepatient/${patient.id }" method="get">
+			<button type="submit">delete patient</button>
+		</f:form>
+		<td>${patient.firstName }</td>
+		<td>${patient.lastName}</td>
 
-		<c:forEach items="${patient.visits }" var="visit">
-			<td>${visit.date }</td>
-			<td>${visit.type }</td>
-			<td>${visit.therapist.firstName }</td>
-			<f:form style="display: inline;"
-				action="${contextPath }/editvisit/${visit.id }" method="get">
-				<button type="submit">edit visit</button>
-			</f:form>
-			<f:form style="display: inline;"
-				action="${contextPath }/deletevisit/${visit.id }" method="get">
-				<button type="submit">delete visit</button>
-			</f:form>
-			</br>
-		</c:forEach>
-	</c:if>
-	<h2>attachments</h2>
-	<c:if test="${!patient.attachements.isEmpty() }">
-		<c:forEach items="${patient.attachements }" var="attachement">
-			<td>${attachement.fileName }</td>
-			<td>${attachement.description }</td>
-			<f:form style="display: inline;"
-				action="${contextPath }/downloadFile/${attachement.id }"
-				method="get">
-				<button type="submit">download</button>
+		<h2>visits</h2>
+		<c:if test="${!patient.visits.isEmpty() }">
+		<f:form style="display: inline;"
+			action="${contextPath }/displayvisits" method="get">
+			<button type="submit">display visits</button>
+		</f:form>
+		</c:if>
+		<f:form style="display: inline;"
+			action="${contextPath }/addvisit/${patient.id }" method="get">
+			<button type="submit">add visit</button>
+		</f:form>
+		</br>
+		<c:if test="${displayVisits }">
 
-			</f:form>
-			<f:form style="display: inline;"
-				action="${contextPath }/removeFile/${attachement.id }" method="get">
-				<button type="submit">remove</button>
+			<c:forEach items="${patient.visits }" var="visit">
+				<td>${visit.date }</td>
+				<td>${visit.type }</td>
+				<td>${visit.therapist.firstName }</td>
+				<f:form style="display: inline;"
+					action="${contextPath }/editvisit/${visit.id }" method="get">
+					<button type="submit">edit visit</button>
+				</f:form>
+				<f:form style="display: inline;"
+					action="${contextPath }/deletevisit/${visit.id }" method="get">
+					<button type="submit">delete visit</button>
+				</f:form>
 				</br>
-			</f:form>
-		</c:forEach>
-	</c:if>
-	<f:form method="POST"
-		action="${contextPath }/uploadFile/${ patient.id}?${_csrf.parameterName}=${_csrf.token}"
-		enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td><input type="file" name="file" /></td>
-			</tr>
-			<tr>
-				<td><input type="text" name="description" /></td>
-			</tr>
-			<tr>
-				<td><button type="submit">submit</button></td>
-			</tr>
-		</table>
-	</f:form>
-	<h2>medical history</h2>
-	<f:form style="display: inline;"
-		action="${contextPath }/addmedicalhistory/${patient.id }" method="get">
-		<button type="submit">add medical history</button>
-	</f:form>
-	</br>
-	<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
-		varStatus="thecount">
+			</c:forEach>
+		</c:if>
+		<h2>attachments</h2>
+		<c:if test="${!patient.attachements.isEmpty() }">
+			<c:forEach items="${patient.attachements }" var="attachement">
+				<td>${attachement.fileName }</td>
+				<td>${attachement.description }</td>
+				<f:form style="display: inline;"
+					action="${contextPath }/downloadFile/${attachement.id }"
+					method="get">
+					<button type="submit">download</button>
 
-	<!--  	<f:form style="display: inline;"
+				</f:form>
+				<f:form style="display: inline;"
+					action="${contextPath }/removeFile/${attachement.id }" method="get">
+					<button type="submit">remove</button>
+					</br>
+				</f:form>
+			</c:forEach>
+		</c:if>
+		<f:form method="POST"
+			action="${contextPath }/uploadFile/${ patient.id}?${_csrf.parameterName}=${_csrf.token}"
+			enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td><input type="file" name="file" /></td>
+				</tr>
+				<tr>
+					<td><input type="text" name="description" /></td>
+				</tr>
+				<tr>
+					<td><button type="submit">submit</button></td>
+				</tr>
+			</table>
+		</f:form>
+		<h2>medical history</h2>
+		<f:form style="display: inline;"
+			action="${contextPath }/addmedicalhistory/${patient.id }"
+			method="get">
+			<button type="submit">add medical history</button>
+		</f:form>
+		</br>
+		<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
+			varStatus="thecount">
+
+			<!--  	<f:form style="display: inline;"
 			action="${contextPath }/displaymedicalhistory/${medicalHistory.medicalHistory.id }"
 			method="get">
 			<button type="submit">display medical history
 				${thecount.count }</button>
 		</f:form>-->
-		</br>
+			</br>
 			<f:form style="display: inline;"
 				action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
 				method="get">
@@ -153,7 +144,8 @@
 				method="get">
 				<button type="submit">add hypothesis</button>
 			</f:form>
-		</br>
-	</c:forEach>
+			</br>
+		</c:forEach>
+	</t:template>
 </body>
 </html>

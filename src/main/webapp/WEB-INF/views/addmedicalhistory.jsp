@@ -23,6 +23,7 @@
 </style>
 </head>
 <body>
+<t:template>
 	<h2>add medical history</h2>
 
 	<f:form action="${contextPath }/addmedicalhistory" method="post"
@@ -59,6 +60,6 @@
 	<f:form action="${contextPath }/displaypatientscard/${medicalhistory.patient.id }" method="get">
 		<button type="submit">back</button>
 	</f:form>
-
+</t:template>
 </body>
 </html>
