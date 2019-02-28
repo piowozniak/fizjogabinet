@@ -4,7 +4,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -15,14 +15,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+body {
+	overflow-y: hidden;
+}
 </style>
 </head>
-<body>
-<t:template>
-	<h2>FizjoGabinet ${pageContext.request.remoteUser}</h2>
+<body style="overflow-y: auto;">
+	<t:template>
 
+		<div class="d-flex justify-content-center">
+			<img  src="resources/images/rehab.jpg" style="opacity: 0.2;
+  filter: alpha(opacity=20);" />
+		</div>
 
-</t:template>
+	</t:template>
 
 </body>
 </html>

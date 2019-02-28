@@ -14,28 +14,44 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<t:template>
-		<h3>patients page</h3>
-		<f:form style="display: inline;"
-			action="${contextPath }/searchpatient" method="get">
-			<input name="search" />
-			<button type="submit">Search</button>
-		</f:form>
-		</br>
-
-		<c:forEach items="${allPatients}" var="patient">
-			<td>${patient.firstName }</td>
-			<td>${patient.lastName }</td>
-			<f:form style="display: inline;"
-				action="${contextPath }/displaypatientscard/${patient.id }"
-				method="get">
-				<button type="submit">details</button>
-			</f:form>
-			<f:form style="display: inline;"
-				action="${contextPath }/editpatient/${patient.id }" method="get">
-				<button type="submit">edit details</button>
+		<div class="container">
+			<p style="display: inline; font-size:24px;">Patients page</p>
+			<f:form class="form-inline" style="display: inline;"
+				action="${contextPath }/searchpatient" method="get">
+				<input name="search"  class="form-control" />
+				<button type="submit" class="btn btn-primary">Search</button>
 			</f:form>
 			</br>
-		</c:forEach>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Phone</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${allPatients}" var="patient">
+						<tr>
+							<td>${patient.firstName }</td>
+							<td>${patient.lastName }</td>
+							<td>${patient.phoneNumber }</td>
+							<td><f:form style="display: inline;"
+									action="${contextPath }/displaypatientscard/${patient.id }"
+									method="get">
+									<button type="submit" class="btn btn-primary">details</button>
+								</f:form>
+							<f:form style="display: inline;"
+									action="${contextPath }/editpatient/${patient.id }"
+									method="get">
+									<button type="submit" class="btn btn-info">edit details</button>
+								</f:form></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</t:template>
 </body>
 </html>

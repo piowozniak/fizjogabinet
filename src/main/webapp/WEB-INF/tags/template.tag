@@ -14,7 +14,7 @@
 	crossorigin="anonymous"></script>
 <style>
 body {
-	min-height: 75rem;
+
 	padding-top: 4.5rem;
 }
 </style>
@@ -37,11 +37,11 @@ body {
 				<li class="nav-item"><a class="nav-link" href="${contextPath }/fizjogabinet/controlpanel">Control panel</a></li>
 				</li>
 			</ul>
-			<form class="form-inline mt-2 mt-md-0">
+			<!--<form class="form-inline mt-2 mt-md-0">
 				<input class="form-control mr-sm-2" type="text" placeholder="Search"
 					aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			</form>-->
 		</div>
 		<form id="logout" action="${logoutUrl}" method="post">
 			<input type="hidden" name="${_csrf.parameterName}"
@@ -49,7 +49,7 @@ body {
 		</form>
 		<form style="display: inline;" method="get"
 			action="javascript:document.getElementById('logout').submit()">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+			<button class="btn btn-info my-2 my-sm-0" type="submit">Log out</button>
 		</form>
 <!--  		<f:form style="display: inline;"
 			action="${contextPath }/fizjogabinet/homepage" method="get">
