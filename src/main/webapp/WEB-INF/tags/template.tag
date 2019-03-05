@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <html>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
@@ -33,7 +34,7 @@ body {
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath }/fizjogabinet/patientspage">Patients page</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath }/fizjogabinet/addpatient" >Add patient</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath }/fizjogabinet/addpatient" >Register patient</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath }/fizjogabinet/controlpanel">Control panel</a></li>
 				</li>
 			</ul>

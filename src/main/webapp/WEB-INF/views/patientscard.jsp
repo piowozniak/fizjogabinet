@@ -14,48 +14,144 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<t:template>
+		<div class="jumbotron text-center">
+			<h3>Patients card</h3>
+			<h1>${patient.firstName }${patient.lastName}</h1>
+			<f:form style="display: inline;"
+				action="${contextPath }/editpatient/${patient.id }" method="get">
+				<button type="submit">edit details</button>
+			</f:form>
+			<f:form style="display: inline;"
+				action="${contextPath }/deletepatient/${patient.id }" method="get">
+				<button type="submit">delete patient</button>
+			</f:form>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-7">
+					<div>
+						<h3>Details</h3>
+						<p>Firstname: ${patient.firstName }</p>
+						<p>Lastname: ${patient.lastName }</p>
+						<p>Date of birth: ${patient.dateOfBirth }</p>
+						<p>Phonenumber: ${patient.phoneNumber }</p>
+					</div>
+					<div>
+						<h3>Medical History</h3>
+						<f:form style="display: inline;"
+							action="${contextPath }/addmedicalhistory/${patient.id }"
+							method="get">
+							<button type="submit">add medical history</button>
+						</f:form>
+						</br>
+						<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
+							varStatus="thecount">
 
-		<h2>patients card</h2>
-		<f:form style="display: inline;"
-			action="${contextPath }/editpatient/${patient.id }" method="get">
-			<button type="submit">edit details</button>
-		</f:form>
-		<f:form style="display: inline;"
-			action="${contextPath }/deletepatient/${patient.id }" method="get">
-			<button type="submit">delete patient</button>
-		</f:form>
-		<td>${patient.firstName }</td>
-		<td>${patient.lastName}</td>
+							<!--  	<f:form style="display: inline;"
+			action="${contextPath }/displaymedicalhistory/${medicalHistory.medicalHistory.id }"
+			method="get">
+			<button type="submit">display medical history
+				${thecount.count }</button>
+		</f:form>-->
+							</br>
+							<f:form style="display: inline;"
+								action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
+								method="get">
+								<button type="submit">edit medical history</button>
+							</f:form>
+							<f:form style="display: inline;"
+								action="${contextPath }/deletemedicalhistory/${medicalHistory.medicalHistory.id }"
+								method="get">
+								<button type="submit">delete medical history</button>
+							</f:form>
+							</br>
+							<div
+								class="${medicalHistory.medicalHistory.flag == 'G' ? 'alert alert-danger' : '' }">
+								<div>${medicalHistoryy.medicalHistory.date }</div>
+								<div>${medicalHistory.medicalHistory.medication }</div>
+								<div>${medicalHistory.medicalHistory.treatment }</div>
+							</div>
+							<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
+								var="hypothesis" varStatus="hypo">
+								<td>hipoteza ${hypo.count }</td>
+								<f:form style="display: inline;"
+									action="${contextPath }/edithypothesis/${hypothesis.id }"
+									method="get">
+									<button type="submit">edit hypothesis</button>
+								</f:form>
+								<f:form style="display: inline;"
+									action="${contextPath }/deletehypothesis/${hypothesis.id }"
+									method="get">
+									<button type="submit">delete hypothesis</button>
+								</f:form>
+								</br>
+								<td>${hypothesis.description }</td>
 
-		<h2>visits</h2>
-		<c:if test="${!patient.visits.isEmpty() }">
-		<f:form style="display: inline;"
-			action="${contextPath }/displayvisits" method="get">
-			<button type="submit">display visits</button>
-		</f:form>
-		</c:if>
-		<f:form style="display: inline;"
-			action="${contextPath }/addvisit/${patient.id }" method="get">
-			<button type="submit">add visit</button>
-		</f:form>
-		</br>
-		<c:if test="${displayVisits }">
+								</br>
+							</c:forEach>
+							<f:form style="display: inline;"
+								action="${contextPath }/addhypothesis/${medicalHistory.medicalHistory.id }"
+								method="get">
+								<button type="submit">add hypothesis</button>
+							</f:form>
+							</br>
+						</c:forEach>
 
-			<c:forEach items="${patient.visits }" var="visit">
-				<td>${visit.date }</td>
-				<td>${visit.type }</td>
-				<td>${visit.therapist.firstName }</td>
-				<f:form style="display: inline;"
-					action="${contextPath }/editvisit/${visit.id }" method="get">
-					<button type="submit">edit visit</button>
-				</f:form>
-				<f:form style="display: inline;"
-					action="${contextPath }/deletevisit/${visit.id }" method="get">
-					<button type="submit">delete visit</button>
-				</f:form>
-				</br>
-			</c:forEach>
-		</c:if>
+					</div>
+				</div>
+
+				<div class="col-sm-5">
+					<h3>Visits</h3>
+					<c:if test="${!patient.visits.isEmpty() }">
+						<f:form style="display: inline;"
+							action="${contextPath }/displayvisits" method="get">
+							<button type="submit">display visits</button>
+						</f:form>
+						<f:form style="display: inline;"
+							action="${contextPath }/addvisit/${patient.id }" method="get">
+							<button type="submit">add visit</button>
+						</f:form>
+						</br>
+					</c:if>
+					<c:if test="${displayVisits }">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Type</th>
+									<th>Therapist</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+
+
+
+								<c:forEach items="${patient.visits }" var="visit">
+									<tr>
+										<td>${visit.date }</td>
+										<td>${visit.type }</td>
+										<td>${visit.therapist.firstName }</td>
+										<td><f:form style="display: inline;"
+												action="${contextPath }/editvisit/${visit.id }" method="get">
+												<button class="btn btn-info" type="submit">edit</button>
+											</f:form> <f:form style="display: inline;"
+												action="${contextPath }/deletevisit/${visit.id }"
+												method="get">
+												<button class="btn btn-danger" type="submit">delete</button>
+											</f:form></td>
+									</tr>
+								</c:forEach>
+
+
+							</tbody>
+						</table>
+					</c:if>
+				</div>
+			</div>
+		</div>
+
+
 		<h2>attachments</h2>
 		<c:if test="${!patient.attachements.isEmpty() }">
 			<c:forEach items="${patient.attachements }" var="attachement">
@@ -89,63 +185,7 @@
 				</tr>
 			</table>
 		</f:form>
-		<h2>medical history</h2>
-		<f:form style="display: inline;"
-			action="${contextPath }/addmedicalhistory/${patient.id }"
-			method="get">
-			<button type="submit">add medical history</button>
-		</f:form>
-		</br>
-		<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
-			varStatus="thecount">
 
-			<!--  	<f:form style="display: inline;"
-			action="${contextPath }/displaymedicalhistory/${medicalHistory.medicalHistory.id }"
-			method="get">
-			<button type="submit">display medical history
-				${thecount.count }</button>
-		</f:form>-->
-			</br>
-			<f:form style="display: inline;"
-				action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
-				method="get">
-				<button type="submit">edit medical history</button>
-			</f:form>
-			<f:form style="display: inline;"
-				action="${contextPath }/deletemedicalhistory/${medicalHistory.medicalHistory.id }"
-				method="get">
-				<button type="submit">delete medical history</button>
-			</f:form>
-			</br>
-			<div>${medicalHistory.medicalHistory.date }</div>
-			<div>${medicalHistory.medicalHistory.medication }</div>
-			<div>${medicalHistory.medicalHistory.treatment }</div>
-
-			<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
-				var="hypothesis" varStatus="hypo">
-				<td>hipoteza ${hypo.count }</td>
-				<f:form style="display: inline;"
-					action="${contextPath }/edithypothesis/${hypothesis.id }"
-					method="get">
-					<button type="submit">edit hypothesis</button>
-				</f:form>
-				<f:form style="display: inline;"
-					action="${contextPath }/deletehypothesis/${hypothesis.id }"
-					method="get">
-					<button type="submit">delete hypothesis</button>
-				</f:form>
-				</br>
-				<td>${hypothesis.description }</td>
-
-				</br>
-			</c:forEach>
-			<f:form style="display: inline;"
-				action="${contextPath }/addhypothesis/${medicalHistory.medicalHistory.id }"
-				method="get">
-				<button type="submit">add hypothesis</button>
-			</f:form>
-			</br>
-		</c:forEach>
 	</t:template>
 </body>
 </html>

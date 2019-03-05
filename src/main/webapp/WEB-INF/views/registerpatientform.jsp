@@ -11,6 +11,7 @@
 <title>fizjogabinet</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -29,48 +30,53 @@
 		}).val();
 	});
 </script>
+
 <style>
 </style>
 </head>
 <body>
-<t:template>
-	<h2>add patient</h2>
+	<t:template>
+	<div class="container"> 
+		<h2>Register patient</h2>
 
-	<!--  dodawanie gym  -->
-	<f:form action="${contextPath }/addpatientconfirmation" method="post"
-		modelAttribute="patient">
+		<!--  dodawanie gym  -->
+		<f:form action="${contextPath }/addpatientconfirmation" method="post"
+			modelAttribute="patient">
 
-		<div>
-			First name:
-			<f:input path="firstName" />
-		</div>
-		<div>
-			Last name:
-			<f:input path="lastName" />
-		</div>
-		<div>
-			Date of birth:
-			<f:input id="datepicker" path="dateOfBirth" />
-		</div>
-		<div>
-			Phone number:
-			<f:input path="phoneNumber" />
-		</div>
+			<div class="form-group col-sm-6">
 
-	
+				<f:input class="form-control input-lg" placeholder="First name" id="firstname" path="firstName" />
+			</div>
+			<div class="form-group col-sm-6">
+
+				<f:input class="form-control input-lg" placeholder="Last name" id="lastname" path="lastName" />
+			</div>
+			<div class="form-group col-sm-6">
+
+				<f:input class="form-control input-lg" placeholder="Date of birth" id="datepicker"
+					path="dateOfBirth" />
+			</div>
+			<div class="form-group col-sm-6">
+
+				<f:input class="form-control input-lg" placeholder="Phone number" id="phonenumber"
+					path="phoneNumber" />
+			</div>
+
 			<div>
 				<f:hidden path="id" />
 			</div>
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<button class="btn btn-primary" type="submit">submit</button>
+		</f:form>
+		<f:form action="${contextPath }/patientspage" method="get">
+
+
+			<button class="btn btn-primary" type="submit">back</button>
+		</f:form>
+		</div>
+	</t:template>
 	
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-		<button type="submit">submit</button>
-	</f:form>
-	<f:form action="${contextPath }/homepage" method="get">
-
-
-		<button type="submit">back</button>
-	</f:form>
-</t:template>
 </body>
 </html>
