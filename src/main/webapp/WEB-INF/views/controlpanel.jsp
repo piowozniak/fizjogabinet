@@ -16,60 +16,89 @@
 
 <body onload='document.loginForm.username.focus();'>
 	<t:template>
-		<h3>control panel</h3>
 
-		<f:form style="display: inline;" action="${contextPath}/addtherapist"
-			method="get">
-			<button type="submit">add therapist</button>
-		</f:form>
-		</br>
-		<c:forEach items="${therapists}" var="therapist">
-			<td>${therapist.firstName }</td>
-			<td>${therapist.lastName }</td>
-			<td>${therapist.status }</td>
-			<f:form style="display: inline;"
-				action="${contextPath }/edittherapist/${therapist.id }" method="get">
-				<button type="submit">edit</button>
-			</f:form>
-			<f:form style="display: inline;"
-				action="${contextPath }/deletetherapist/${therapist.id }"
-				method="get">
-				<button type="submit">remove</button>
-			</f:form>
-			</br>
-		</c:forEach>
-		<h2>change password</h2>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5">
+					<h3>control panel</h3>
+					<f:form style="display: inline;"
+						action="${contextPath}/addtherapist" method="get">
+						<button type="submit">add therapist</button>
+					</f:form>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="text-align: center;" colspan="2">Therapists</th>
 
-		<f:form  method="POST" action="${contextPath}/changePassword"
-			modelAttribute="passwordForm" class="form-signin">
-			<spring:bind path="currentPassword">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<f:input type="password" path="currentPassword"
-						class="form-control" placeholder="Current password"
-						autofocus="true"></f:input>
-					<f:errors path="currentPassword"></f:errors>
+							</tr>
+							<tr>
+								<th>Name</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<c:forEach items="${therapists}" var="therapist">
+								<tr>
+									<td>${therapist.firstName }${therapist.lastName }</td>
+									<td style="text-align: center;"><f:form
+											style="display: inline;"
+											action="${contextPath }/edittherapist/${therapist.id }"
+											method="get">
+											<button class="btn btn-info" type="submit">edit</button>
+										</f:form> <f:form style="display: inline;"
+											action="${contextPath }/deletetherapist/${therapist.id }"
+											method="get">
+											<button class="btn btn-danger" type="submit">remove</button>
+										</f:form></td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+
+					</table>
 				</div>
-			</spring:bind>
+				<div class="col-sm-5">
+					<h3>change password</h3>
 
-			<spring:bind path="password">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<f:input type="password" path="password" class="form-control"
-						placeholder="Password"></f:input>
-					<f:errors path="password"></f:errors>
-				</div>
-			</spring:bind>
+					<f:form method="POST" action="${contextPath}/changePassword"
+						modelAttribute="passwordForm" class="form-signin">
+						<spring:bind path="currentPassword">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
+								<f:input type="password" path="currentPassword"
+									class="form-control input-lg" placeholder="Current password"
+									autofocus="true"></f:input>
+								<f:errors path="currentPassword"></f:errors>
+							</div>
+						</spring:bind>
 
-			<spring:bind path="passwordConfirm">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<f:input type="password" path="passwordConfirm"
-						class="form-control" placeholder="Confirm your password"></f:input>
-					<f:errors path="passwordConfirm"></f:errors>
+						<spring:bind path="password">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
+								<f:input type="password" path="password"
+									class="form-control input-lg" placeholder="Password"></f:input>
+								<f:errors path="password"></f:errors>
+							</div>
+						</spring:bind>
+
+						<spring:bind path="passwordConfirm">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
+								<f:input type="password" path="passwordConfirm"
+									class="form-control input-lg"
+									placeholder="Confirm your password"></f:input>
+								<f:errors path="passwordConfirm"></f:errors>
+							</div>
+						</spring:bind>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+					</f:form>
+
 				</div>
-			</spring:bind>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-		</f:form>
+			</div>
+		</div>
+
+
+
 	</t:template>
 </body>
 </html>

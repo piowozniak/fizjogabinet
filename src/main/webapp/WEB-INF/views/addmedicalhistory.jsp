@@ -57,7 +57,7 @@
 	</f:form>
 
 
-	<f:form action="${contextPath }/displaypatientscard/${medicalhistory.patient.id }" method="get">
+	<f:form action="${contextPath }/displaypatientscard/${medicalHistory.patient.id }" method="get">
 		<button type="submit">back</button>
 	</f:form>
 </t:template>

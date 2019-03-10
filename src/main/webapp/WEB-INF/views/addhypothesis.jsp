@@ -36,7 +36,7 @@
 			 <f:hidden path="id" />
 	</f:form>
 
-	<f:form action="${contextPath }/homepage" method="get">
+	<f:form action="${contextPath }/displaypatientscard/${hypothesis.medicalHistory.patient.id }" method="get">
 		<button type="submit">back</button>
 	</f:form>
 </t:template>

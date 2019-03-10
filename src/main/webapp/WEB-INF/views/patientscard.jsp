@@ -19,11 +19,11 @@
 			<h1>${patient.firstName }${patient.lastName}</h1>
 			<f:form style="display: inline;"
 				action="${contextPath }/editpatient/${patient.id }" method="get">
-				<button type="submit">edit details</button>
+				<button class="btn btn-info" type="submit">edit details</button>
 			</f:form>
 			<f:form style="display: inline;"
 				action="${contextPath }/deletepatient/${patient.id }" method="get">
-				<button type="submit">delete patient</button>
+				<button class="btn btn-danger" type="submit">delete patient</button>
 			</f:form>
 		</div>
 		<div class="container">
@@ -37,18 +37,22 @@
 						<p>Phonenumber: ${patient.phoneNumber }</p>
 					</div>
 					<div class="well">
-						<h3>Medical History</h3>
 
 						<f:form style="display: inline;"
 							action="${contextPath }/addmedicalhistory/${patient.id }"
 							method="get">
-							<button type="submit">add medical history</button>
+							<button class="btn btn-info" type="submit">add medical
+								history</button>
 						</f:form>
 						</br>
 						<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
 							varStatus="thecount">
 							<table class="table table-bordered">
 								<thead>
+									<tr>
+										<th style="text-align: center; font-size: 24px;" colspan="4">Medical
+											history ${thecount.count }</th>
+									</tr>
 									<tr
 										class="${medicalHistory.medicalHistory.flag == 'G' ? 'alert alert-danger' : '' }">
 										<th>Date</th>
@@ -56,13 +60,15 @@
 										<th>Treatment</th>
 										<th></th>
 									</tr>
+
 								</thead>
 								<tbody>
 									<tr>
 										<td>${medicalHistory.medicalHistory.date }</td>
 										<td>${medicalHistory.medicalHistory.medication }</td>
 										<td>${medicalHistory.medicalHistory.treatment }</td>
-										<td><f:form style="display: inline;"
+										<td style="text-align: center;"><f:form
+												style="display: inline;"
 												action="${contextPath }/editmedicalhistory/${medicalHistory.medicalHistory.id }"
 												method="get">
 												<button class="btn btn-info" type="submit">edit</button>
@@ -74,17 +80,20 @@
 									</tr>
 								</tbody>
 							</table>
-							<h3>Hypothesis</h3>
 							<f:form style="display: inline;"
 								action="${contextPath }/addhypothesis/${medicalHistory.medicalHistory.id }"
 								method="get">
-								<button type="submit">add hypothesis</button>
+								<button class="btn btn-info" type="submit">add
+									hypothesis</button>
 							</f:form>
-							<table class="table table-bordered">
+							<table style="padding-left: 50px;" class="table table-bordered">
 								<thead>
 									<tr>
+										<th colspan="2" style="text-align: center;">Hypothesis</th>
+									</tr>
+									<tr>
 										<th>Description</th>
-										<th></th>
+										<th style="width: 30%;"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -93,7 +102,8 @@
 										var="hypothesis" varStatus="hypo">
 										<tr>
 											<td>${hypothesis.description }</td>
-											<td><f:form style="display: inline;"
+											<td style="text-align: center;"><f:form
+													style="display: inline;"
 													action="${contextPath }/edithypothesis/${hypothesis.id }"
 													method="get">
 													<button class="btn btn-info" type="submit">edit</button>
@@ -110,23 +120,78 @@
 							</table>
 						</c:forEach>
 					</div>
+					<div class="well">
+						<f:form method="POST"
+							action="${contextPath }/uploadFile/${ patient.id}?${_csrf.parameterName}=${_csrf.token}"
+							enctype="multipart/form-data">
+							<table>
+								<tr>
+									<td><input type="file" name="file" /></td>
+
+
+									<td><input class="form-control input-lg" type="text"
+										placeholder="" name="description" /></td>
+
+
+									<td><button class="btn btn-info" type="submit">submit</button></td>
+								</tr>
+							</table>
+						</f:form>
+						<c:if test="${!patient.attachements.isEmpty() }">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th colspan="3" style="text-align: center;">Attachments</th>
+									</tr>
+									<tr>
+										<th>File</th>
+										<th>Description</th>
+										<th style="width: 33%;"></th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<c:forEach items="${patient.attachements }" var="attachement">
+
+											<td>${attachement.fileName }</td>
+											<td>${attachement.description }</td>
+											<td style="text-align: center;"><f:form
+													style="display: inline;"
+													action="${contextPath }/downloadFile/${attachement.id }"
+													method="get">
+													<button class="btn btn-info" type="submit">download</button>
+
+												</f:form> <f:form style="display: inline;"
+													action="${contextPath }/removeFile/${attachement.id }"
+													method="get">
+													<button class="btn btn-danger" type="submit">remove</button>
+												</f:form></td>
+										</c:forEach>
+									</tr>
+								</tbody>
+							</table>
+						</c:if>
+					</div>
+
 				</div>
 
 				<div class="col-sm-5">
 					<h3>Visits</h3>
 					<f:form style="display: inline;"
 						action="${contextPath }/addvisit/${patient.id }" method="get">
-						<button type="submit">add visit</button>
+						<button class="btn btn-info" type="submit">add visit</button>
 					</f:form>
 					<c:if test="${!patient.visits.isEmpty() }">
 						<f:form style="display: inline;"
 							action="${contextPath }/displayvisits" method="get">
-							<button type="submit">display visits</button>
+							<button class="btn btn-info" type="submit">display
+								visits</button>
 						</f:form>
 
 						</br>
 					</c:if>
-					<c:if test="${displayVisits }">
+					<c:if test="${displayVisits }"></c:if>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -156,62 +221,11 @@
 
 							</tbody>
 						</table>
-					</c:if>
+					
 				</div>
 			</div>
 
-			<div class="row	">
-				<div class="well">
-					<h2>Attachments</h2>
 
-					<f:form method="POST"
-						action="${contextPath }/uploadFile/${ patient.id}?${_csrf.parameterName}=${_csrf.token}"
-						enctype="multipart/form-data">
-						<table>
-							<tr>
-								<td><input type="file" name="file" /></td>
-
-
-								<td><input type="text" placeholder="" name="description" /></td>
-
-
-								<td><button type="submit">submit</button></td>
-							</tr>
-						</table>
-					</f:form>
-					<c:if test="${!patient.attachements.isEmpty() }">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>File</th>
-									<th>Description</th>
-									<th></th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<c:forEach items="${patient.attachements }" var="attachement">
-
-										<td>${attachement.fileName }</td>
-										<td>${attachement.description }</td>
-										<td><f:form style="display: inline;"
-												action="${contextPath }/downloadFile/${attachement.id }"
-												method="get">
-												<button class="btn btn-info" type="submit">download</button>
-
-											</f:form> <f:form style="display: inline;"
-												action="${contextPath }/removeFile/${attachement.id }"
-												method="get">
-												<button class="btn btn-danger" type="submit">remove</button>
-											</f:form></td>
-									</c:forEach>
-								</tr>
-							</tbody>
-						</table>
-					</c:if>
-				</div>
-			</div>
 		</div>
 
 
