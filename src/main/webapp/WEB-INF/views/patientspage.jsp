@@ -13,51 +13,52 @@
 <title>login</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
-	
-		<t:template>
-			<div class="container">
 
-				<p style="display: inline; font-size: 24px;">Patients page</p>
-				<f:form class="form-inline" style="display: inline;"
-					action="${contextPath }/searchpatient" method="get">
-					<input name="search" class="form-control" />
-					<button type="submit" class="btn btn-primary">
-						<span class="glyphicon glyphicon-search"></span> Search
-					</button>
-				</f:form>
-				</br> </br>
-				<table class="table table-hover">
-					<thead>
+	<t:template>
+		<div class="container">
+			<f:form class="form-inline" style="display: inline;"
+				action="${contextPath }/searchpatient" method="get">
+				<input name="search" placeholder="Search" class="form-control" />
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-search"></span> Search
+				</button>
+			</f:form>
+			</br> </br>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th colspan="4" style="text-align:center; font-size:24px;">List of patients:</th>
+					</tr>
+					<tr>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Phone</th>
+						<th style="width: 20%;"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${allPatients}" var="patient">
 						<tr>
-							<th>Firstname</th>
-							<th>Lastname</th>
-							<th>Phone</th>
-							<th></th>
+							<td>${patient.firstName }</td>
+							<td>${patient.lastName }</td>
+							<td>${patient.phoneNumber }</td>
+							<td><f:form style="display: inline;"
+									action="${contextPath }/displaypatientscard/${patient.id }"
+									method="get">
+									<button type="submit" class="btn btn-primary">details</button>
+								</f:form> <f:form style="display: inline;"
+									action="${contextPath }/editpatient/${patient.id }"
+									method="get">
+									<button type="submit" class="btn btn-info">edit
+										details</button>
+								</f:form></td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${allPatients}" var="patient">
-							<tr>
-								<td>${patient.firstName }</td>
-								<td>${patient.lastName }</td>
-								<td>${patient.phoneNumber }</td>
-								<td><f:form style="display: inline;"
-										action="${contextPath }/displaypatientscard/${patient.id }"
-										method="get">
-										<button type="submit" class="btn btn-primary">details</button>
-									</f:form> <f:form style="display: inline;"
-										action="${contextPath }/editpatient/${patient.id }"
-										method="get">
-										<button type="submit" class="btn btn-info">edit
-											details</button>
-									</f:form></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+					</c:forEach>
+				</tbody>
+			</table>
 
-			</div>
-		</t:template>
-	
+		</div>
+	</t:template>
+
 </body>
 </html>

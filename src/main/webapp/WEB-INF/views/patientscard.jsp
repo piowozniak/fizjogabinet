@@ -47,14 +47,14 @@
 						</br>
 						<c:forEach items="${listOfMedicalHistory}" var="medicalHistory"
 							varStatus="thecount">
+							<div style="">
 							<table class="table table-bordered">
 								<thead>
-									<tr>
+									<tr class="${medicalHistory.flagColor}">
 										<th style="text-align: center; font-size: 24px;" colspan="4">Medical
 											history ${thecount.count }</th>
 									</tr>
-									<tr
-										class="${medicalHistory.medicalHistory.flag == 'G' ? 'alert alert-danger' : '' }">
+									<tr class="${medicalHistory.flagColor}">
 										<th>Date</th>
 										<th>Medication</th>
 										<th>Treatment</th>
@@ -89,9 +89,10 @@
 							<table style="padding-left: 50px;" class="table table-bordered">
 								<thead>
 									<tr>
-										<th colspan="2" style="text-align: center;">Hypothesis</th>
+										<th colspan="3" style="text-align: center;">Hypothesis</th>
 									</tr>
 									<tr>
+										<th style="width:10%;">Lp.</th>
 										<th>Description</th>
 										<th style="width: 30%;"></th>
 									</tr>
@@ -101,6 +102,7 @@
 									<c:forEach items="${medicalHistory.medicalHistory.hypothesis}"
 										var="hypothesis" varStatus="hypo">
 										<tr>
+											<td>${hypo.count }</td>
 											<td>${hypothesis.description }</td>
 											<td style="text-align: center;"><f:form
 													style="display: inline;"
@@ -118,6 +120,7 @@
 
 								</tbody>
 							</table>
+							</div>
 						</c:forEach>
 					</div>
 					<div class="well">
@@ -130,7 +133,7 @@
 
 
 									<td><input class="form-control input-lg" type="text"
-										placeholder="" name="description" /></td>
+										placeholder="Description" name="description" /></td>
 
 
 									<td><button class="btn btn-info" type="submit">submit</button></td>
@@ -182,7 +185,7 @@
 						action="${contextPath }/addvisit/${patient.id }" method="get">
 						<button class="btn btn-info" type="submit">add visit</button>
 					</f:form>
-					<c:if test="${!patient.visits.isEmpty() }">
+					<!--<c:if test="${!patient.visits.isEmpty() }">
 						<f:form style="display: inline;"
 							action="${contextPath }/displayvisits" method="get">
 							<button class="btn btn-info" type="submit">display
@@ -190,38 +193,38 @@
 						</f:form>
 
 						</br>
-					</c:if>
+					</c:if>-->
 					<c:if test="${displayVisits }"></c:if>
-						<table class="table table-bordered">
-							<thead>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Type</th>
+								<th>Therapist</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${patient.visits }" var="visit">
 								<tr>
-									<th>Date</th>
-									<th>Type</th>
-									<th>Therapist</th>
-									<th></th>
+									<td>${visit.date }</td>
+									<td>${visit.type }</td>
+									<td>${visit.therapist.firstName }</td>
+									<td><f:form style="display: inline;"
+											action="${contextPath }/editvisit/${visit.id }" method="get">
+											<button class="btn btn-info" type="submit">edit</button>
+										</f:form> <f:form style="display: inline;"
+											action="${contextPath }/deletevisit/${visit.id }"
+											method="get">
+											<button class="btn btn-danger" type="submit">delete</button>
+										</f:form></td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${patient.visits }" var="visit">
-									<tr>
-										<td>${visit.date }</td>
-										<td>${visit.type }</td>
-										<td>${visit.therapist.firstName }</td>
-										<td><f:form style="display: inline;"
-												action="${contextPath }/editvisit/${visit.id }" method="get">
-												<button class="btn btn-info" type="submit">edit</button>
-											</f:form> <f:form style="display: inline;"
-												action="${contextPath }/deletevisit/${visit.id }"
-												method="get">
-												<button class="btn btn-danger" type="submit">delete</button>
-											</f:form></td>
-									</tr>
-								</c:forEach>
+							</c:forEach>
 
 
-							</tbody>
-						</table>
-					
+						</tbody>
+					</table>
+
 				</div>
 			</div>
 

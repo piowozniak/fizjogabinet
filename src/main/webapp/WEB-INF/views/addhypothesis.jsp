@@ -18,27 +18,42 @@
 </style>
 </head>
 <body>
-<t:template>
-	<h2>add hypothesis</h2>
+	<t:template>
 
-	<f:form action="${contextPath }/addhypothesis" method="post"
-		modelAttribute="hypothesis">
+		<div class="container">
+			<div class="row">
 
-		<div>
-			Description:
-			<f:input path="description" />
+				<f:form action="${contextPath }/addhypothesis" method="post"
+					modelAttribute="hypothesis">
+					<h2>Hypothesis</h2>
+					<div class="form-group col-sm-8">
+
+						<f:textarea class="form-control input-lg" rows="4" cols="50"
+							placeholder="Description:" path="description" />
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<div class="well">
+						<button class="btn btn-success" type="submit">save</button>
+					</div>
+
+					<f:hidden path="medicalHistory.id" />
+					<f:hidden path="id" />
+				</f:form>
+
+
+			</div>
+			<div class="row">
+				<f:form
+					action="${contextPath }/displaypatientscard/${hypothesis.medicalHistory.patient.id }"
+					method="get">
+					<button class="btn btn-primary" type="submit">back</button>
+				</f:form>
+			</div>
 		</div>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button type="submit">save</button>
-			<f:hidden path="medicalHistory.id"
-			 />
-			 <f:hidden path="id" />
-	</f:form>
 
-	<f:form action="${contextPath }/displaypatientscard/${hypothesis.medicalHistory.patient.id }" method="get">
-		<button type="submit">back</button>
-	</f:form>
-</t:template>
+
+
+	</t:template>
 </body>
 </html>

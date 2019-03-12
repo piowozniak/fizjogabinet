@@ -7,6 +7,7 @@ import pl.fizjogabinet.model.entity.MedicalHistory;
 
 public class MedicalHistoryDTO {
 	
+	private String flagColor;
 	private boolean displayMedicalHistory;
 	private MedicalHistory medicalHistory;
 	
@@ -14,6 +15,18 @@ public class MedicalHistoryDTO {
 	public MedicalHistoryDTO(MedicalHistory medicalHistory) {
 		super();
 		this.medicalHistory = medicalHistory;
+		this.flagColor = setColor(medicalHistory);
+	}
+	
+	private String setColor(MedicalHistory medicalHistory) {
+		if (medicalHistory.getFlag().equals("R")) {
+			return "alert alert-danger";
+		} else if (medicalHistory.getFlag().equals("Y")) {
+			return "alert alert-warning";
+		} else {
+			return "alert alert-success";
+		}
+
 	}
 
 	public MedicalHistoryDTO() {
@@ -35,5 +48,10 @@ public class MedicalHistoryDTO {
 	public void setDisplayMedicalHistory(boolean displayMedicalHistory) {
 		this.displayMedicalHistory = displayMedicalHistory;
 	}
+
+	public String getFlagColor() {
+		return flagColor;
+	}
+	
 
 }

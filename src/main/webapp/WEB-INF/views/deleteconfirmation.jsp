@@ -23,7 +23,7 @@
 </head>
 <body>
 	<t:template>
-		<h2>are you sure you want to delete</h2>
+		<h2>Are you sure?</h2>
 		<c:if test="${visit != null }">
 			<f:form action="${contextPath }/deletevisit/${visit.id }"
 				method="post" modelAttribute="visit">
@@ -32,13 +32,13 @@
 				</div>
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form
 				action="${contextPath }/displaypatientscard/${visit.patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 		<c:if test="${medicalHistory != null }">
@@ -50,13 +50,13 @@
 
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form
 				action="${contextPath }/displaypatientscard/${visit.patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 		<c:if test="${patient != null }">
@@ -67,12 +67,12 @@
 
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 		<c:if test="${hypothesis != null }">
@@ -83,12 +83,12 @@
 
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 		<c:if test="${therapist != null }">
@@ -99,12 +99,12 @@
 
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 		<c:if test="${file != null }">
@@ -115,13 +115,13 @@
 
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-				<button type="submit">delete</button>
+				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
 			<f:form
 				action="${contextPath }/displaypatientscard/${file.patient.id }"
 				method="get">
-				<button type="submit">cancel</button>
+				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>
 		</c:if>
 	</t:template>

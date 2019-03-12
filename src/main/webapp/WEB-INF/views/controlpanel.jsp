@@ -23,7 +23,7 @@
 					<h3>control panel</h3>
 					<f:form style="display: inline;"
 						action="${contextPath}/addtherapist" method="get">
-						<button type="submit">add therapist</button>
+						<button class="btn btn-primary" type="submit">add therapist</button>
 					</f:form>
 					<table class="table table-bordered">
 						<thead>
@@ -33,14 +33,14 @@
 							</tr>
 							<tr>
 								<th>Name</th>
-								<th></th>
+								<th style="width:40%;"></th>
 							</tr>
 						</thead>
 						<tbody>
 
 							<c:forEach items="${therapists}" var="therapist">
 								<tr>
-									<td>${therapist.firstName }${therapist.lastName }</td>
+									<td>${therapist.firstName } ${therapist.lastName }</td>
 									<td style="text-align: center;"><f:form
 											style="display: inline;"
 											action="${contextPath }/edittherapist/${therapist.id }"

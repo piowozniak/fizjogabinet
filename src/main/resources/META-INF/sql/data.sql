@@ -18,8 +18,8 @@ INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber
 INSERT INTO patient (id, firstName, lastName, fullName, dateOfBirth, phoneNumber) VALUES (4, "Mariusz", "Twardowski", "Mariusz Twardowski","1988-12-01", "66666666");
 
 
-INSERT INTO medicalHistory (id, patient_id, date, medication, treatment) VALUES (1, 1, "2018-12-01", "Ibuprofen, Apap", "Leczyc okladami");
-INSERT INTO medicalHistory (id, patient_id, date, medication, treatment) VALUES (2, 1, "2018-11-01", "Strzykawka, Apap", "Operacja");
+INSERT INTO medicalHistory (id, patient_id, date, medication, treatment, flag) VALUES (1, 1, "2018-12-01", "Ibuprofen, Apap", "Leczyc okladami", "G");
+INSERT INTO medicalHistory (id, patient_id, date, medication, treatment, flag) VALUES (2, 1, "2018-11-01", "Strzykawka, Apap", "Operacja", "R");
 
 INSERT INTO visits (id, patient_id, therapist_id, date, type) VALUES (1, 1, 1, "2018-03-01", "Gabinet");
 INSERT INTO visits (id, patient_id, therapist_id, date, type) VALUES (2, 1, 1, "2018-11-01", "Domowa");

@@ -36,47 +36,54 @@
 </head>
 <body>
 	<t:template>
-	<div class="container"> 
-		<h2>Register patient</h2>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-7">
+					<f:form action="${contextPath }/addpatientconfirmation"
+						method="post" modelAttribute="patient">
+						<h2>Register patient</h2>
+						<div class="form-group col-sm-8">
 
-		<!--  dodawanie gym  -->
-		<f:form action="${contextPath }/addpatientconfirmation" method="post"
-			modelAttribute="patient">
+							<f:input class="form-control input-lg" placeholder="First name"
+								id="firstname" path="firstName" />
+						</div>
+						<div class="form-group col-sm-8">
 
-			<div class="form-group col-sm-6">
+							<f:input class="form-control input-lg" placeholder="Last name"
+								id="lastname" path="lastName" />
+						</div>
+						<div class="form-group col-sm-8">
 
-				<f:input class="form-control input-lg" placeholder="First name" id="firstname" path="firstName" />
+							<f:input class="form-control input-lg"
+								placeholder="Date of birth" id="datepicker" path="dateOfBirth" />
+						</div>
+						<div class="form-group col-sm-8">
+
+							<f:input class="form-control input-lg" placeholder="Phone number"
+								id="phonenumber" path="phoneNumber" />
+						</div>
+
+						<div>
+							<f:hidden path="id" />
+						</div>
+
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<div class="well">
+							<button class="btn btn-success" type="submit">save</button>
+						</div>
+					</f:form>
+				</div>
 			</div>
-			<div class="form-group col-sm-6">
-
-				<f:input class="form-control input-lg" placeholder="Last name" id="lastname" path="lastName" />
+			<div class="row">
+				<div class="col-sm-7">
+					<f:form action="${contextPath }/patientspage" method="get">
+						<button class="btn btn-primary" type="submit">back</button>
+					</f:form>
+					
+				</div>
 			</div>
-			<div class="form-group col-sm-6">
-
-				<f:input class="form-control input-lg" placeholder="Date of birth" id="datepicker"
-					path="dateOfBirth" />
-			</div>
-			<div class="form-group col-sm-6">
-
-				<f:input class="form-control input-lg" placeholder="Phone number" id="phonenumber"
-					path="phoneNumber" />
-			</div>
-
-			<div>
-				<f:hidden path="id" />
-			</div>
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button class="btn btn-primary" type="submit">submit</button>
-		</f:form>
-		<f:form action="${contextPath }/patientspage" method="get">
-
-
-			<button class="btn btn-primary" type="submit">back</button>
-		</f:form>
-		</div>
 	</t:template>
-	
+
 </body>
 </html>
