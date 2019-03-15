@@ -10,13 +10,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>login</title>
+<title>PhysioClinic</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<t:template>
 		<div class="jumbotron text-center">
 			<h3>Patients card</h3>
-			<h1>${patient.firstName }${patient.lastName}</h1>
+			<h1>${patient.firstName } ${patient.lastName}</h1>
 			<f:form style="display: inline;"
 				action="${contextPath }/editpatient/${patient.id }" method="get">
 				<button class="btn btn-info" type="submit">edit details</button>

@@ -19,7 +19,9 @@ body {
 	padding-top: 4.5rem;
 }
 </style>
+
 <body>
+
 	<c:url value="/logout" var="logoutUrl" />
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
 		<a class="navbar-brand" href="#">PhysioClinic</a>

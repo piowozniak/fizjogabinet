@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>login</title>
+<title>PhysioClinic</title>
 </head>
 
 <body onload='document.loginForm.username.focus();'>
@@ -20,7 +20,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-5">
-					<h3>control panel</h3>
 					<f:form style="display: inline;"
 						action="${contextPath}/addtherapist" method="get">
 						<button class="btn btn-primary" type="submit">add therapist</button>

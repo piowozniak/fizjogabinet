@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>fizjogabinet</title>
+<title>PhysioClinic</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -102,7 +102,7 @@
 				<button class="btn btn-danger" type="submit">delete</button>
 			</f:form>
 
-			<f:form action="${contextPath }/displaypatientscard/${patient.id }"
+			<f:form action="${contextPath }/controlpanel"
 				method="get">
 				<button class="btn btn-info" type="submit">cancel</button>
 			</f:form>

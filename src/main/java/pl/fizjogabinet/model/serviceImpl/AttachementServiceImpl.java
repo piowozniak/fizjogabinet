@@ -40,6 +40,9 @@ public class AttachementServiceImpl implements AttachementService{
 	@Override
 	public String upload(Model model, Long id, MultipartFile file, String description) throws SerialException, SQLException {
 		Patient patient = patientRepository.findOne(id);
+		if (file.getSize() == 0) {
+			return "redirect:/displaypatientscard/"+patient.getId();
+		}
 		FizjoGabinetObject<Attachement> fileObject = new FizjoGabinetObject<Attachement>(new Attachement());
 		Attachement attachement = fileObject.getFizjoObject();
 		attachement.setPatient(patient);

@@ -30,6 +30,7 @@ public class TherapistServiceImpl implements CrudService<Therapist> {
 	@Override
 	public String addFormConfirmation(Model model, Therapist therapist) {
 		therapist = ifIdNullGetNewMedicalHistory_orEditExisting(therapist);
+		therapist.setStatus("T");
 		therapistRepository.save(therapist);
 		return "redirect:/controlpanel";
 	}

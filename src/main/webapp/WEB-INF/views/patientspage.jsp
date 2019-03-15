@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>login</title>
+<title>PhysioClinic</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
 
@@ -24,16 +24,17 @@
 				</button>
 			</f:form>
 			</br> </br>
-			<table class="table table-hover">
+			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th colspan="4" style="text-align:center; font-size:24px;">List of patients:</th>
+						<th colspan="4" style="text-align: center; font-size: 24px;">List
+							of patients:</th>
 					</tr>
 					<tr>
 						<th>Firstname</th>
 						<th>Lastname</th>
 						<th>Phone</th>
-						<th style="width: 20%;"></th>
+						<th style="width: 30%;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,6 +52,12 @@
 									method="get">
 									<button type="submit" class="btn btn-info">edit
 										details</button>
+								</f:form>
+								<f:form style="display: inline;"
+									action="${contextPath }/deletepatient/${patient.id }"
+									method="get">
+									<button class="btn btn-danger" type="submit">delete
+										patient</button>
 								</f:form></td>
 						</tr>
 					</c:forEach>

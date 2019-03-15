@@ -1,5 +1,8 @@
 package pl.fizjogabinet.controller;
 
+import java.util.Collection;
+import java.util.Comparator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import pl.fizjogabinet.model.entity.Therapist;
 import pl.fizjogabinet.model.entity.User;
+import pl.fizjogabinet.model.repository.TherapistRepository;
 import pl.fizjogabinet.model.service.SecurityService;
 import pl.fizjogabinet.model.service.UserService;
 import pl.fizjogabinet.model.validator.UserValidator;
@@ -26,6 +32,9 @@ public class LoginController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired
+    private TherapistRepository therapistRepository;
     
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -73,6 +82,7 @@ public class LoginController {
 	public String changePassword(@ModelAttribute("passwordForm") User passwordForm, BindingResult bindingResult, Model model) {
         userValidator.validatePasswordChange(passwordForm, bindingResult);
         if (bindingResult.hasErrors()) {
+        	model.addAttribute("therapists", therapistRepository.findByActiveTherapists());
             return "controlpanel";
         }
         userService.changePassword(passwordForm);
