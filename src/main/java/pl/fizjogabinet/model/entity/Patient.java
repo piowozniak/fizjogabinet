@@ -23,6 +23,9 @@ public class Patient {
 	private String fullName;
 	private String dateOfBirth;
 	private String phoneNumber;
+	private String address;
+	private String gender;
+	private String pesel;
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<MedicalHistory> medicalHistory;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "patient")
@@ -100,6 +103,30 @@ public class Patient {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getPesel() {
+		return pesel;
+	}
+
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
 	}
 
 }

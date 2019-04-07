@@ -21,12 +21,14 @@ public class PatientServiceImpl implements CrudService<Patient> {
 	@Autowired
 	private VisitRepository visitRepository;
 	private static final String PATIENT = "Patient";
+	private static final String[] GENDERS = new String[] {"M", "F"};
 
 	@Override
 	public String addForm(Model model, Long id) {
 		FizjoGabinetObject<Patient> patientObject = new FizjoGabinetObject<Patient>(new Patient());
 		Patient patient = patientObject.getFizjoObject();
 		model.addAttribute("patient", patient);
+		model.addAttribute("genders", GENDERS);
 		return "registerpatientform";
 	}
 

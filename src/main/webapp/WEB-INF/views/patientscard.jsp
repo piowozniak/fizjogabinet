@@ -35,6 +35,9 @@
 						<p>Lastname: ${patient.lastName }</p>
 						<p>Date of birth: ${patient.dateOfBirth }</p>
 						<p>Phonenumber: ${patient.phoneNumber }</p>
+						<p>Pesel: ${patient.pesel }</p>
+						<p>Address: ${patient.address }</p>
+						<p>Gender: ${patient.gender }</p>
 					</div>
 					<div class="well">
 

@@ -62,6 +62,22 @@
 							<f:input class="form-control input-lg" placeholder="Phone number"
 								id="phonenumber" path="phoneNumber" />
 						</div>
+						<div class="form-group col-sm-8">
+							Gender:
+
+							<f:select path="gender" class="form-control" items="${genders}" />
+						</div>
+						<div class="form-group col-sm-8">
+
+							<f:input class="form-control input-lg" placeholder="Pesel"
+								id="pesel" path="pesel" />
+						</div>
+						<div class="form-group col-sm-8">
+
+							<f:input class="form-control input-lg" placeholder="Address"
+								id="address" path="address" />
+						</div>
+						
 
 						<div>
 							<f:hidden path="id" />
@@ -80,7 +96,7 @@
 					<f:form action="${contextPath }/patientspage" method="get">
 						<button class="btn btn-primary" type="submit">back</button>
 					</f:form>
-					
+
 				</div>
 			</div>
 	</t:template>
